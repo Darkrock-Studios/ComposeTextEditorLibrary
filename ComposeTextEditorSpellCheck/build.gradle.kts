@@ -7,6 +7,7 @@ plugins {
 	alias(libs.plugins.composeCompiler)
 	alias(libs.plugins.android.kmp.library)
 	alias(libs.plugins.mavenPublish)
+	alias(libs.plugins.dokka)
 }
 
 kotlin {
@@ -98,6 +99,18 @@ kotlin {
 		val iosMain by getting {
 			dependsOn(symSpellMain)
 			dependsOn(platformSpellMain)
+		}
+	}
+}
+
+dokka {
+	moduleName.set("Spell Check")
+	dokkaSourceSets.configureEach {
+		includes.from("Module.md")
+		sourceLink {
+			localDirectory.set(rootDir)
+			remoteUrl("https://github.com/Wavesonics/ComposeTextEditorLibrary/blob/main")
+			remoteLineSuffix.set("#L")
 		}
 	}
 }

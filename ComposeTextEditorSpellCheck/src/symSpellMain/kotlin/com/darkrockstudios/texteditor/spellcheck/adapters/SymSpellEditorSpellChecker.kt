@@ -10,14 +10,25 @@ import com.darkrockstudios.texteditor.spellcheck.api.EditorSpellChecker
 import com.darkrockstudios.texteditor.spellcheck.api.EditorSpellChecker.Scope
 import com.darkrockstudios.texteditor.spellcheck.api.Suggestion
 
+/**
+ * An [EditorSpellChecker] backed by the SymSpell library.
+ *
+ * Uses SymSpell's dictionary lookup for word checking and suggestions, and its word-break
+ * segmentation to detect sentence-level issues such as concatenated words, mapping results into
+ * the editor's [Suggestion] and [Correction] types.
+ *
+ * @param impl The SymSpell [SpellChecker] to delegate to.
+ */
 class SymSpellEditorSpellChecker(
 	private val impl: SpellChecker
 ) : EditorSpellChecker {
+	/** Implements [EditorSpellChecker.isCorrectWord] using SymSpell. */
 	override suspend fun isCorrectWord(word: String): Boolean {
 		val suggestions = impl.lookup(word, verbosity = Verbosity.Top)
 		return word.isSpelledCorrectly(suggestions)
 	}
 
+	/** Implements [EditorSpellChecker.suggestions] using SymSpell. */
 	override suspend fun suggestions(input: String, scope: Scope, closestOnly: Boolean): List<Suggestion> {
 		val verbosity = if (closestOnly) Verbosity.Closest else Verbosity.All
 		val base = impl.lookup(input, verbosity = verbosity)
@@ -35,6 +46,7 @@ class SymSpellEditorSpellChecker(
 		return base
 	}
 
+	/** Implements [EditorSpellChecker.checkSentence] using SymSpell word-break segmentation. */
 	override suspend fun checkSentence(
 		sentence: String,
 		sentenceRange: TextEditorRange,

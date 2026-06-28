@@ -36,6 +36,11 @@ sealed interface ImageBlockResource {
 class InMemoryImageProvider : ImageProvider {
 	private val entries = mutableMapOf<String, androidx.compose.runtime.MutableState<ImageBlockResource>>()
 
+	/**
+	 * Registers [bitmap] as the loaded result for [source], overwriting any
+	 * existing entry. Subsequent [resolve] calls for [source] return
+	 * [ImageBlockResource.Loaded].
+	 */
 	fun put(source: String, bitmap: ImageBitmap) {
 		val existing = entries[source]
 		if (existing != null) {
@@ -45,6 +50,10 @@ class InMemoryImageProvider : ImageProvider {
 		}
 	}
 
+	/**
+	 * Marks [source] as failed with [reason], overwriting any existing entry.
+	 * Subsequent [resolve] calls for [source] return [ImageBlockResource.Failed].
+	 */
 	fun fail(source: String, reason: String) {
 		val existing = entries[source]
 		if (existing != null) {
@@ -54,6 +63,10 @@ class InMemoryImageProvider : ImageProvider {
 		}
 	}
 
+	/**
+	 * Returns the tracked [State] for [source]. Unknown sources resolve to
+	 * [ImageBlockResource.Failed] and are recorded so later lookups stay stable.
+	 */
 	override fun resolve(source: String): State<ImageBlockResource> {
 		return entries.getOrPut(source) {
 			mutableStateOf(ImageBlockResource.Failed("not provided: $source"))

@@ -6,6 +6,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 
+/**
+ * The colors and text style applied to a [TextEditor]. Any `Color.Unspecified` field
+ * falls back to a sensible default at draw time, so you only set what you want to
+ * change.
+ *
+ * Prefer [rememberTextEditorStyle], which derives these from the active
+ * [androidx.compose.material3.MaterialTheme] color scheme and tracks theme changes.
+ * Construct directly only when you need colors independent of the theme.
+ */
 data class TextEditorStyle(
 	val textColor: Color = Color.Unspecified,
 	val backgroundColor: Color = Color.Unspecified,
@@ -55,6 +64,11 @@ data class TextEditorStyle(
 	val codeFenceBorderColor: Color = Color.Unspecified,
 )
 
+/**
+ * Builds and remembers a [TextEditorStyle] whose defaults are drawn from the active
+ * [MaterialTheme] color scheme, so the editor matches your theme out of the box and
+ * recolors when the theme changes. Override any parameter to customize a single role.
+ */
 @Composable
 fun rememberTextEditorStyle(
 	textColor: Color = MaterialTheme.colorScheme.onBackground,

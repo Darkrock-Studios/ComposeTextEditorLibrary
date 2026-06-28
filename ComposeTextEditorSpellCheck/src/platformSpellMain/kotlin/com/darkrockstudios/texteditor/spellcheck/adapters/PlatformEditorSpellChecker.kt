@@ -9,13 +9,23 @@ import com.darkrockstudios.texteditor.spellcheck.api.Correction
 import com.darkrockstudios.texteditor.spellcheck.api.EditorSpellChecker
 import com.darkrockstudios.texteditor.spellcheck.api.Suggestion
 
+/**
+ * An [EditorSpellChecker] backed by the OS/platform spell checker.
+ *
+ * Delegates word, suggestion, and sentence checks to the underlying [PlatformSpellChecker],
+ * translating its results into the editor's platform-agnostic [Suggestion] and [Correction] types.
+ *
+ * @param checker The platform spell checker to delegate to.
+ */
 class PlatformEditorSpellChecker(
 	private val checker: PlatformSpellChecker
 ) : EditorSpellChecker {
+	/** Implements [EditorSpellChecker.isCorrectWord] using the platform spell checker. */
 	override suspend fun isCorrectWord(word: String): Boolean {
 		return checker.isWordCorrect(word)
 	}
 
+	/** Implements [EditorSpellChecker.suggestions] using the platform spell checker. */
 	override suspend fun suggestions(
 		input: String,
 		scope: EditorSpellChecker.Scope,
@@ -43,6 +53,7 @@ class PlatformEditorSpellChecker(
 		}
 	}
 
+	/** Implements [EditorSpellChecker.checkSentence] using the platform spell checker. */
 	override suspend fun checkSentence(
 		sentence: String,
 		sentenceRange: TextEditorRange,

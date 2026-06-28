@@ -11,6 +11,15 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
+/**
+ * Creates and remembers a [TextEditorState], wiring it to a coroutine scope and a
+ * text measurer that follow the composition. Hoist the returned state and pass it to
+ * [com.darkrockstudios.texteditor.TextEditor] to read or mutate the content.
+ *
+ * @param initialText Content to seed the editor with on first composition. Later
+ *   recompositions with a different value do not replace the content; call
+ *   [TextEditorState.setText] to change it after creation.
+ */
 @OptIn(ExperimentalUuidApi::class)
 @Composable
 fun rememberTextEditorState(initialText: AnnotatedString? = null): TextEditorState {

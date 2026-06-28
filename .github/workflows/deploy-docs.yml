@@ -1,0 +1,77 @@
+name: Deploy Docs
+
+# Builds the Wasm demo + Dokka API docs and publishes them to the `demo` branch,
+# which GitHub Pages serves from its docs/ directory.
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Never let two docs publishes race to push the demo branch.
+concurrency:
+  group: deploy-docs
+  cancel-in-progress: false
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v3
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.konan
+          key: ${{ runner.os }}-${{ hashFiles('**/.lock') }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build demo + API docs
+        run: ./gradlew updateDocs --no-daemon --stacktrace
+
+      - name: Publish docs/ to the demo branch
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Check out the publishing branch in a separate worktree so the freshly
+          # generated docs/ in the build checkout is left untouched.
+          git fetch origin demo
+          git worktree add "$RUNNER_TEMP/demo" demo
+
+          # Replace the published site with the freshly generated one.
+          rm -rf "$RUNNER_TEMP/demo/docs"
+          cp -a docs "$RUNNER_TEMP/demo/docs"
+
+          cd "$RUNNER_TEMP/demo"
+          git add docs
+          if git diff --cached --quiet; then
+            echo "Docs unchanged; nothing to publish."
+          else
+            git commit -m "Update demo and API docs for ${GITHUB_REF_NAME:-manual run}"
+            git push origin demo
+          fi

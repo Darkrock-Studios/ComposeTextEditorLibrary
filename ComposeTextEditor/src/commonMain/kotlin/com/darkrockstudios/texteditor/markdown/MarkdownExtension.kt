@@ -1,7 +1,20 @@
 package com.darkrockstudios.texteditor.markdown
 
 import com.darkrockstudios.texteditor.CharLineOffset
-import com.darkrockstudios.texteditor.richstyle.*
+import com.darkrockstudios.texteditor.richstyle.Blockquote
+import com.darkrockstudios.texteditor.richstyle.BulletList
+import com.darkrockstudios.texteditor.richstyle.CodeFence
+import com.darkrockstudios.texteditor.richstyle.CodeFenceSpanStyle
+import com.darkrockstudios.texteditor.richstyle.HR_PLACEHOLDER
+import com.darkrockstudios.texteditor.richstyle.HorizontalRuleSpanStyle
+import com.darkrockstudios.texteditor.richstyle.IMAGE_PLACEHOLDER
+import com.darkrockstudios.texteditor.richstyle.ImageBlockSpanStyle
+import com.darkrockstudios.texteditor.richstyle.ImageProvider
+import com.darkrockstudios.texteditor.richstyle.LINE_BLOCK_STYLES
+import com.darkrockstudios.texteditor.richstyle.LineBlockStyle
+import com.darkrockstudios.texteditor.richstyle.OrderedList
+import com.darkrockstudios.texteditor.richstyle.applyLineBlock
+import com.darkrockstudios.texteditor.richstyle.hasLineBlock
 import com.darkrockstudios.texteditor.state.TextEditorState
 
 private val HR_LINE_TOKENS = setOf("---", "***", "___")
@@ -328,6 +341,15 @@ class MarkdownExtension(
 	}
 }
 
+/**
+ * Wraps this [TextEditorState] in a [MarkdownExtension], the entry point for
+ * markdown import/export and block toggles (blockquote, bullet/ordered lists,
+ * code fences).
+ *
+ * @param initialConfiguration Styling applied to imported and exported markdown.
+ * @param imageProvider Resolves image sources for imported image blocks; pass
+ * `null` to skip image handling.
+ */
 fun TextEditorState.withMarkdown(
 	initialConfiguration: MarkdownConfiguration = MarkdownConfiguration.DEFAULT,
 	imageProvider: ImageProvider? = null,

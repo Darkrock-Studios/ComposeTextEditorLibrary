@@ -8,7 +8,13 @@ import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -45,6 +51,25 @@ import kotlin.time.Duration.Companion.milliseconds
 
 private const val CURSOR_BLINK_SPEED_MS = 500L
 
+/**
+ * The rich text editor with no surface or border chrome — bring your own
+ * container. [TextEditor] wraps this in a Material [androidx.compose.material3.Surface];
+ * reach for [BasicTextEditor] directly when you need that wrapping under your own
+ * control, a custom context menu, or per-line decoration.
+ *
+ * @param state Holds the document, cursor, selection, and undo history.
+ * @param contentPadding Padding between the editor bounds and the text.
+ * @param enabled When `false`, the editor is read-only and cannot take focus.
+ * @param autoFocus Requests focus once when first composed.
+ * @param style Colors and text style for the editor and its gutter markers.
+ * @param contextMenuStrings Localized labels for the built-in cut/copy/paste menu.
+ * @param contextMenuState Drives context-menu visibility; pass your own to add
+ *   custom items (e.g. spell-check suggestions), or leave `null` for the default.
+ * @param onRichSpanClick Invoked when a rich span is tapped or right-clicked;
+ *   return `true` to consume the event.
+ * @param decorateLine Optional per-line decorator drawn behind each line, keyed by
+ *   line index — useful for gutters, current-line highlights, or diff markers.
+ */
 @Composable
 fun BasicTextEditor(
 	state: TextEditorState = rememberTextEditorState(),
@@ -229,4 +254,9 @@ internal fun Modifier.requestFocusOnPress(focusRequester: FocusRequester) = poin
 	}
 }
 
+/**
+ * Handles clicks on a [RichSpan]. Receives the clicked span, the [SpanClickType]
+ * that distinguishes a tap from a left- or right-click, and the click [Offset] in
+ * editor coordinates. Return `true` to consume the event and stop further handling.
+ */
 typealias RichSpanClickListener = ((RichSpan, SpanClickType, Offset) -> Boolean)

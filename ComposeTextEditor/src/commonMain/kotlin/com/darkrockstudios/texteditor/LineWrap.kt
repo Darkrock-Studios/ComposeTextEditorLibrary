@@ -5,9 +5,22 @@ import androidx.compose.ui.text.TextLayoutResult
 import com.darkrockstudios.texteditor.richstyle.RichSpan
 import com.darkrockstudios.texteditor.state.TextEditorState
 
+/**
+ * One wrapped visual line segment. A single logical paragraph ([line]) that wraps
+ * across several rows produces one `LineWrap` per row; the bookkeeping fields below
+ * let drawing and hit-testing map between visual rows, paragraph layout, and
+ * character indices without re-measuring at draw time.
+ *
+ * @property line Index of the logical paragraph this segment belongs to.
+ * @property wrapStartsAtIndex Character index, within [line], of the first character on this segment.
+ * @property virtualLength Number of characters on this segment.
+ * @property virtualLineIndex Index of this segment within [textLayoutResult]'s laid-out rows.
+ * @property offset View-coordinate position of this segment's top-left.
+ * @property textLayoutResult The Compose [androidx.compose.ui.text.TextLayoutResult] for the whole paragraph.
+ * @property richSpans The [RichSpan]s overlapping this segment.
+ */
 data class LineWrap(
 	val line: Int,
-	// The character index of the first character on this line
 	val wrapStartsAtIndex: Int,
 	val virtualLength: Int,
 	val virtualLineIndex: Int,

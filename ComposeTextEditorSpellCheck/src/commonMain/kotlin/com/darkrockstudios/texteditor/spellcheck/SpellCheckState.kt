@@ -9,7 +9,14 @@ import com.darkrockstudios.texteditor.spellcheck.api.EditorSpellChecker
 import com.darkrockstudios.texteditor.spellcheck.api.EditorSpellChecker.Scope
 import com.darkrockstudios.texteditor.spellcheck.api.Suggestion
 import com.darkrockstudios.texteditor.spellcheck.utils.applyCapitalizationStrategy
-import com.darkrockstudios.texteditor.state.*
+import com.darkrockstudios.texteditor.state.TextEditOperation
+import com.darkrockstudios.texteditor.state.TextEditorState
+import com.darkrockstudios.texteditor.state.WordSegment
+import com.darkrockstudios.texteditor.state.getRichSpansInRange
+import com.darkrockstudios.texteditor.state.sentenceSegments
+import com.darkrockstudios.texteditor.state.sentenceSegmentsInRange
+import com.darkrockstudios.texteditor.state.wordSegments
+import com.darkrockstudios.texteditor.state.wordSegmentsInRange
 
 /**
  * Determines which spell checking mode is active.
@@ -22,15 +29,39 @@ enum class SpellCheckMode {
 	Sentence
 }
 
+/**
+ * State holder that coordinates spell checking over a [TextEditorState].
+ *
+ * Tracks misspelled words and sentence-level [Correction]s, manages the spell-check decoration
+ * spans rendered in the document, and runs full or partial checks through an [EditorSpellChecker].
+ * Span mutations are performed atomically after any asynchronous lookup completes so that a
+ * cancelled check never leaves the document with its decorations wiped.
+ *
+ * @property textState The underlying editor state whose content is spell checked.
+ * @property spellChecker The [EditorSpellChecker] used to evaluate words and sentences; checks are
+ *   no-ops while this is `null`.
+ * @param enableSpellChecking Whether spell checking is active initially; exposed via
+ *   [spellCheckingEnabled].
+ * @property spellCheckMode Whether checking operates per-word or per-sentence; see [SpellCheckMode].
+ */
 class SpellCheckState(
 	val textState: TextEditorState,
 	var spellChecker: EditorSpellChecker?,
 	enableSpellChecking: Boolean = true,
 	var spellCheckMode: SpellCheckMode = SpellCheckMode.Word,
 ) {
+	/** Whether spell checking is currently active. Toggle via [setSpellCheckingEnabled]. */
 	var spellCheckingEnabled: Boolean = enableSpellChecking
 		private set
 
+	/**
+	 * Enable or disable spell checking.
+	 *
+	 * Enabling when previously disabled triggers a full re-check; disabling clears all existing
+	 * spell-check decorations.
+	 *
+	 * @param value The new enabled state.
+	 */
 	suspend fun setSpellCheckingEnabled(value: Boolean) {
 		val wasEnabled = spellCheckingEnabled
 		spellCheckingEnabled = value
@@ -92,6 +123,14 @@ class SpellCheckState(
 		}
 	}
 
+	/**
+	 * Replace a misspelled word with the chosen correction.
+	 *
+	 * Removes the word's spell-check decoration and applies the replacement to [textState].
+	 *
+	 * @param segment The misspelled [WordSegment] to correct.
+	 * @param correction The replacement text.
+	 */
 	fun correctSpelling(segment: WordSegment, correction: String) {
 		textState.getRichSpansInRange(segment.range)
 			.filter { it.style == SpellCheckStyle }
@@ -279,6 +318,14 @@ class SpellCheckState(
 		return !segment.text.all { it.isDigit() }
 	}
 
+	/**
+	 * Remove spell-check decorations affected by an edit operation.
+	 *
+	 * Called as edits stream in so stale decorations disappear immediately, ahead of the debounced
+	 * re-check. No-op when the operation did not change the document text.
+	 *
+	 * @param operation The [TextEditOperation] that mutated the document.
+	 */
 	fun invalidateSpellCheckSpans(operation: TextEditOperation) {
 		val newTextHash = textState.computeTextHash()
 		if (lastTextHash != newTextHash) {
@@ -325,6 +372,15 @@ class SpellCheckState(
 		}
 	}
 
+	/**
+	 * Gather correction suggestions for a word.
+	 *
+	 * Combines word-level and (for misspelled input) sentence-level [Suggestion]s, de-duplicates
+	 * them case-insensitively, and matches each suggestion's capitalization to the source word.
+	 *
+	 * @param word The word to look up suggestions for.
+	 * @return The combined, de-duplicated suggestions; empty when no [spellChecker] is configured.
+	 */
 	suspend fun getSuggestions(word: String): List<Suggestion> {
 		val sp = spellChecker ?: return emptyList()
 

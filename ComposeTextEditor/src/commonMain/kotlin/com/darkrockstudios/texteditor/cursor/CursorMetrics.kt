@@ -2,6 +2,12 @@ package com.darkrockstudios.texteditor.cursor
 
 import androidx.compose.ui.geometry.Offset
 
+/**
+ * Geometry of the caret at a single position, expressed in view coordinates.
+ *
+ * @property position Top-left of the caret.
+ * @property height Caret height, matching the line it sits on.
+ */
 data class CursorMetrics(
 	val position: Offset,
 	val height: Float,

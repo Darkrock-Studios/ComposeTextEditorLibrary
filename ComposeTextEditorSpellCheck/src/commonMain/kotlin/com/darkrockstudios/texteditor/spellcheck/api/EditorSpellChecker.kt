@@ -8,7 +8,13 @@ interface EditorSpellChecker {
 	suspend fun isCorrectWord(word: String): Boolean
 
 	/** Desired evaluation scope for suggestions. */
-	enum class Scope { Word, Sentence }
+	enum class Scope {
+		/** Treat the input as a single token and suggest corrections for that word. */
+		Word,
+
+		/** Treat the input as a sentence; suggestions may span multiple words and include whitespace. */
+		Sentence
+	}
 
 	/**
 	 * Suggestions for the given input. If `scope == Word`, `input` is a single token. If `scope == Sentence`,

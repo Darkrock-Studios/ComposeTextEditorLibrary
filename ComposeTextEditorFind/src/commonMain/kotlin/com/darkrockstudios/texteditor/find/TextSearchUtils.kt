@@ -39,8 +39,14 @@ fun TextEditorState.findAll(
 }
 
 /**
- * Find the match nearest to the current cursor position.
- * Returns the index in the matches list, or -1 if no matches.
+ * Returns the index into [matches] of the match nearest the cursor.
+ *
+ * Prefers the first match at or after [cursorPosition], wrapping back to the first match when every
+ * match precedes the cursor, and favoring an enclosing match when the cursor sits inside one.
+ *
+ * @param matches Matches in document order, as returned by [findAll].
+ * @param cursorPosition The current cursor location.
+ * @return The index of the nearest match, or -1 when [matches] is empty.
  */
 fun findNearestMatchIndex(
 	matches: List<TextEditorRange>,

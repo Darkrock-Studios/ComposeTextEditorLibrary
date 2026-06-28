@@ -10,6 +10,12 @@ import androidx.compose.ui.text.TextRange
 import com.darkrockstudios.texteditor.LineWrap
 import com.darkrockstudios.texteditor.state.TextEditorState
 
+/**
+ * A [RichSpanStyle] that paints a solid rectangle behind its text. Used for
+ * search/find highlights and any other "marker pen" emphasis.
+ *
+ * @param color Fill color of the highlight.
+ */
 class HighlightSpanStyle(
 	private val color: Color
 ) : RichSpanStyle {

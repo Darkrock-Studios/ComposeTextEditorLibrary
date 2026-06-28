@@ -63,6 +63,10 @@ internal fun TextEditorState.moveCursorToLineEnd() {
 	}
 }
 
+/**
+ * Moves the cursor to the start of the next word, or to the document end if none
+ * remains.
+ */
 fun TextEditorState.moveToNextWord() {
 	// Get document length
 	val totalChars = textLines.sumOf { it.length + 1 } - 1
@@ -96,6 +100,10 @@ fun TextEditorState.moveToNextWord() {
 	cursor.updatePosition(getOffsetAtCharacter(newPosition))
 }
 
+/**
+ * Moves the cursor to the start of the current or previous word, or to the
+ * document start if already at the beginning.
+ */
 fun TextEditorState.moveToPreviousWord() {
 	// Get current absolute position
 	val currentCharIndex = getCharacterIndex(cursorPosition)
@@ -136,10 +144,12 @@ fun TextEditorState.moveToPreviousWord() {
 	cursor.updatePosition(getOffsetAtCharacter(newPosition))
 }
 
+/** Moves the cursor to the first character of the document. */
 fun TextEditorState.moveToDocumentStart() {
 	cursor.updatePosition(CharLineOffset(0, 0))
 }
 
+/** Moves the cursor past the last character of the document. */
 fun TextEditorState.moveToDocumentEnd() {
 	val lastLine = textLines.size - 1
 	cursor.updatePosition(CharLineOffset(lastLine, textLines[lastLine].length))

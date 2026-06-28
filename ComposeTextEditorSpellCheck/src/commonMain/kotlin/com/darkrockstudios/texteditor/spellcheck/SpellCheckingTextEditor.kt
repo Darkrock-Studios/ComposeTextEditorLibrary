@@ -2,16 +2,27 @@ package com.darkrockstudios.texteditor.spellcheck
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.darkrockstudios.texteditor.*
+import com.darkrockstudios.texteditor.BasicTextEditor
+import com.darkrockstudios.texteditor.RichSpanClickListener
+import com.darkrockstudios.texteditor.TextEditorRange
+import com.darkrockstudios.texteditor.TextEditorStyle
 import com.darkrockstudios.texteditor.contextmenu.ContextMenuItem
 import com.darkrockstudios.texteditor.contextmenu.ContextMenuStrings
 import com.darkrockstudios.texteditor.contextmenu.TextEditorContextMenuState
+import com.darkrockstudios.texteditor.focusBorder
+import com.darkrockstudios.texteditor.rememberTextEditorStyle
 import com.darkrockstudios.texteditor.spellcheck.api.Correction
 import com.darkrockstudios.texteditor.spellcheck.api.EditorSpellChecker
 import com.darkrockstudios.texteditor.spellcheck.utils.debounceUntilQuiescentWithBatch
@@ -24,6 +35,28 @@ import kotlin.time.Duration.Companion.milliseconds
 
 private val DefaultContentPadding = PaddingValues(start = 8.dp)
 
+/**
+ * A drop-in text editor composable with integrated spell checking.
+ *
+ * Wraps [BasicTextEditor] and overlays spell-check decorations driven by a [SpellCheckState].
+ * Edits are observed reactively: affected spans are invalidated immediately and re-checked once
+ * typing goes quiet. Secondary clicks and taps on a flagged span open a context menu of
+ * [Suggestion][com.darkrockstudios.texteditor.spellcheck.api.Suggestion]s for the
+ * misspelled word or sentence-level [Correction].
+ *
+ * @param spellChecker The [EditorSpellChecker] backing spell checks; used to build a default
+ *   [state] when none is provided. May be `null` to disable checking.
+ * @param state The [SpellCheckState] coordinating spell checking over the underlying
+ *   [TextEditorState]. Defaults to a remembered state built from [spellChecker].
+ * @param modifier The [Modifier] applied to the editor surface.
+ * @param contentPadding Padding applied around the editor content.
+ * @param enabled Whether the editor accepts input and focus.
+ * @param autoFocus Whether the editor requests focus on first composition.
+ * @param style The [TextEditorStyle] controlling appearance.
+ * @param contextMenuStrings Localized strings for the built-in context menu.
+ * @param onRichSpanClick Optional listener for clicks on non-spell-check rich spans; spell-check
+ *   spans are handled internally.
+ */
 @Composable
 fun SpellCheckingTextEditor(
 	spellChecker: EditorSpellChecker? = null,

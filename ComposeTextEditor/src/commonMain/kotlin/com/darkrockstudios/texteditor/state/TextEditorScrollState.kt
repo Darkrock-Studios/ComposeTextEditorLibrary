@@ -13,6 +13,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import kotlin.math.roundToInt
 
+/**
+ * Vertical scroll position for a text editor, as a Compose [ScrollableState].
+ *
+ * Position is tracked in pixels and clamped to [minValue]..[maxValue]; setting
+ * those bounds re-clamps the current [value]. Use with `Modifier.scrollable`, or
+ * drive it directly via [scrollTo], [scrollBy], and [animateScrollTo].
+ *
+ * @param initial Initial scroll position in pixels.
+ */
 class TextEditorScrollState(
 	initial: Int = 0
 ) : ScrollableState {
@@ -30,7 +39,10 @@ class TextEditorScrollState(
 		}
 	}
 
+	/** Current scroll position in pixels, clamped to [minValue]..[maxValue]. */
 	val value: Int get() = _value
+
+	/** Lower scroll bound in pixels. Setting it re-clamps [value]. */
 	var minValue: Int
 		get() = _minValue
 		set(value) {
@@ -39,6 +51,11 @@ class TextEditorScrollState(
 			if (_maxValue < _minValue) _maxValue = _minValue
 			_value = if (wasAtMin) _minValue else _value.coerceIn(_minValue, _maxValue)
 		}
+
+	/**
+	 * Upper scroll bound in pixels. A fixed content buffer is added to the value
+	 * set here, and [value] is re-clamped to the new range.
+	 */
 	var maxValue: Int
 		get() = _maxValue
 		set(value) {
@@ -46,9 +63,14 @@ class TextEditorScrollState(
 			_value = _value.coerceIn(_minValue, _maxValue)
 		}
 
+	/** `true` while a [scroll] or [animateScrollTo] is running. */
 	override val isScrollInProgress: Boolean
 		get() = _isScrollInProgress
 
+	/**
+	 * Runs [block] with exclusive scroll access at the given [scrollPriority],
+	 * marking [isScrollInProgress] for its duration.
+	 */
 	override suspend fun scroll(
 		scrollPriority: MutatePriority,
 		block: suspend ScrollScope.() -> Unit
@@ -63,6 +85,10 @@ class TextEditorScrollState(
 		}
 	}
 
+	/**
+	 * Applies a raw scroll [delta] (positive scrolls content up), clamping to the
+	 * bounds, and returns the pixels actually consumed.
+	 */
 	override fun dispatchRawDelta(delta: Float): Float {
 		if (delta.isNaN()) return 0f
 
@@ -76,10 +102,15 @@ class TextEditorScrollState(
 		return consumed
 	}
 
+	/** Jumps to [value] (in pixels) immediately, clamped to the bounds. */
 	fun scrollTo(value: Int) {
 		_value = value.coerceIn(_minValue, maxValue)
 	}
 
+	/**
+	 * Animates the position to [value] (in pixels), clamped to the bounds, using
+	 * [animationSpec]. Suspends until the animation completes.
+	 */
 	suspend fun animateScrollTo(
 		value: Int,
 		animationSpec: AnimationSpec<Float> = spring(
@@ -104,6 +135,10 @@ class TextEditorScrollState(
 		}
 	}
 
+	/**
+	 * Moves the position by [delta] pixels, clamped to the bounds, and returns the
+	 * pixels actually consumed.
+	 */
 	fun scrollBy(delta: Float): Float {
 		val oldValue = _value
 		val newValue = (oldValue + delta).roundToInt().coerceIn(_minValue, maxValue)

@@ -4,6 +4,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.darkrockstudios.texteditor.state.TextEditorScrollState
 
+/**
+ * Wraps editor [content] with a platform-appropriate vertical scrollbar driven by
+ * [scrollState]. The platform implementation draws a scrollbar where the host
+ * conventionally expects one (e.g. desktop) and passes a [Modifier] to [content]
+ * so it can reserve room for it.
+ *
+ * @param modifier Applied to the scrollbar container.
+ * @param scrollState Scroll position the scrollbar reflects and controls.
+ * @param content The editor, receiving a [Modifier] to apply to its root.
+ */
 @Composable
 expect fun TextEditorScrollbar(
     modifier: Modifier = Modifier,

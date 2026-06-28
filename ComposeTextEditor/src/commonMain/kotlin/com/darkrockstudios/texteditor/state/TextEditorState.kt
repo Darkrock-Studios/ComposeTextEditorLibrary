@@ -41,6 +41,28 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlin.math.min
 
+/**
+ * The single source of truth for a [com.darkrockstudios.texteditor.TextEditor]:
+ * the document text, cursor, selection, rich spans, scroll position, and undo
+ * history. Create one with
+ * [rememberTextEditorState] and hoist it so you can drive the editor from outside.
+ *
+ * Content lives in [textLines] (one [AnnotatedString] per line); replace it wholesale
+ * with [setText] or read it back with [getAllText]. Edit it through the cursor-aware
+ * operations ([insertStringAtCursor], [backspaceAtCursor], …) or by range
+ * ([replace], [delete]). Character styling goes through [addStyleSpan]/[removeStyleSpan],
+ * while block decorations (lists, blockquotes, code fences, highlights) go through the
+ * `RichSpan` API ([addRichSpan]/[removeRichSpan]). [undo]/[redo] walk the edit history,
+ * gated by [canUndo]/[canRedo].
+ *
+ * Related concerns are delegated to focused sub-objects exposed as properties:
+ * [cursor] (caret position and movement), [selector] (selection), [scrollManager]
+ * (scrolling and visible range), and [richSpanManager] (rich-span book-keeping).
+ * Observe changes reactively via [cursorDataFlow] and [editOperations].
+ *
+ * Coordinates are [CharLineOffset]s and [TextEditorRange]s; convert to and from flat
+ * character indices with [getCharacterIndex]/[getOffsetAtCharacter].
+ */
 class TextEditorState(
 	val scope: CoroutineScope,
 	measurer: TextMeasurer,
@@ -80,13 +102,21 @@ class TextEditorState(
 		internal set
 
 	internal val _textLines = mutableListOf<AnnotatedString>()
+
+	/**
+	 * The document content as one [AnnotatedString] per line, in order. Read-only;
+	 * mutate through the edit operations or replace wholesale with [setText].
+	 */
 	val textLines: List<AnnotatedString> get() = _textLines
 
+	/** The caret: its [CharLineOffset] position, movement, and active typing style. */
 	val cursor = TextEditorCursorState(this)
 
+	/** The caret's current [CharLineOffset]; shorthand for [cursor]'s position. */
 	val cursorPosition: CharLineOffset
 		get() = cursor.position
 
+	/** Whether the editor currently holds keyboard focus. */
 	var isFocused by mutableStateOf(false)
 
 	/**
@@ -114,8 +144,19 @@ class TextEditorState(
 		internal set
 
 	private var _lineOffsets by mutableStateOf(emptyList<LineWrap>())
+
+	/**
+	 * The laid-out [LineWrap]s for the document: each visual (wrapped) line with its
+	 * pixel offset, text-layout result, and resolved rich spans. Recomputed on every
+	 * edit, style, or viewport change.
+	 */
 	val lineOffsets: List<LineWrap> get() = _lineOffsets
 
+	/**
+	 * Emits a [CursorData] snapshot (active styles, position, selection) whenever the
+	 * caret moves, the typing style changes, or the selection changes. Collect this to
+	 * keep a toolbar or status display in sync with the editor.
+	 */
 	val cursorDataFlow: Flow<CursorData>
 		get() {
 			return cursor.stylesFlow
@@ -134,7 +175,10 @@ class TextEditorState(
 	private var _canUndo by mutableStateOf(false)
 	private var _canRedo by mutableStateOf(false)
 
+	/** Whether [undo] currently has an edit to revert. */
 	val canUndo: Boolean get() = _canUndo
+
+	/** Whether [redo] currently has a reverted edit to re-apply. */
 	val canRedo: Boolean get() = _canRedo
 
 	internal var viewportSize by mutableStateOf(Size(1f, 1f))
@@ -151,6 +195,7 @@ class TextEditorState(
 			}
 		}
 
+	/** Scrolling, content height, and the currently visible line range. */
 	val scrollManager = TextEditorScrollManager(
 		scope = scope,
 		scrollState = TextEditorScrollState(0),
@@ -160,8 +205,11 @@ class TextEditorState(
 		getLineOffsets = { _lineOffsets },
 	)
 
+	/** The text selection: its [TextEditorRange], gestures, and selected-content queries. */
 	val selector = TextEditorSelectionManager(this)
 	internal val editManager = TextEditManager(this)
+
+	/** Book-keeping for the document's [RichSpan] block decorations (lists, quotes, code fences, highlights). */
 	val richSpanManager = RichSpanManager(this)
 
 	// In-editor rich-span clipboard. The system clipboard only carries the
@@ -182,6 +230,7 @@ class TextEditorState(
 	 */
 	val platformExtensions = PlatformTextEditorExtensions(this)
 
+	/** The underlying scroll position, surfaced from [scrollManager]. */
 	val scrollState get() = scrollManager.scrollState
 
 	/**
@@ -191,8 +240,17 @@ class TextEditorState(
 	 */
 	val firstVisibleOffset: CharLineOffset get() = scrollManager.firstVisibleOffset
 
+	/**
+	 * Emits each [TextEditOperation] as it is applied (insert, delete, replace).
+	 * Collect this to observe the edit stream; decoration-only changes are excluded.
+	 */
 	val editOperations = editManager.editOperations
 
+	/**
+	 * Replaces the entire document with [text], clearing rich spans and resetting
+	 * book-keeping. To edit existing content instead, use [replace] or the cursor
+	 * operations.
+	 */
 	fun setText(text: String) {
 		_textLines.clear()
 		richSpanManager.clear()
@@ -200,6 +258,11 @@ class TextEditorState(
 		updateBookKeeping()
 	}
 
+	/**
+	 * Replaces the entire document with [text], preserving its character-level spans
+	 * while clearing rich spans and resetting book-keeping. To edit existing content
+	 * instead, use [replace] or the cursor operations.
+	 */
 	fun setText(text: AnnotatedString) {
 		_textLines.clear()
 		richSpanManager.clear()
@@ -207,6 +270,7 @@ class TextEditorState(
 		updateBookKeeping()
 	}
 
+	/** Sets [isFocused]; losing focus also clears any pending IME composing region. */
 	fun updateFocus(focused: Boolean) {
 		isFocused = focused
 		// Clear composing state when focus is lost
@@ -238,6 +302,11 @@ class TextEditorState(
 		composingRange = null
 	}
 
+	/**
+	 * Inserts a line break at the cursor, splitting the current line. On an empty
+	 * list or blockquote item this instead exits the block (dropping its gutter
+	 * marker) and consumes the keystroke.
+	 */
 	fun insertNewlineAtCursor() {
 		val originalLine = cursorPosition.line
 		val activeBlock = detectLineBlock(originalLine)
@@ -268,6 +337,11 @@ class TextEditorState(
 		}
 	}
 
+	/**
+	 * Deletes the character before the cursor, merging with the previous line when at
+	 * column 0. At the start of a list or blockquote item it first demotes the block
+	 * (removing its gutter marker) unless the previous line shares the same block.
+	 */
 	fun backspaceAtCursor() {
 		// Backspace at column 0 of a line-block (blockquote, bullet) first demotes
 		// (removes the gutter marker and indent); a follow-up backspace then merges
@@ -315,6 +389,10 @@ class TextEditorState(
 		}
 	}
 
+	/**
+	 * Deletes the character after the cursor, merging the next line into the current
+	 * one when at end of line (forward delete).
+	 */
 	fun deleteAtCursor() {
 		if (cursorPosition.char < textLines[cursorPosition.line].length) {
 			val deleteRange = TextEditorRange(
@@ -343,6 +421,7 @@ class TextEditorState(
 		}
 	}
 
+	/** Inserts a single [char] at the cursor, applying the active typing style. */
 	fun insertCharacterAtCursor(char: Char) {
 		val text = cursor.applyCursorStyle(char.toString())
 		val operation = TextEditOperation.Insert(
@@ -354,7 +433,14 @@ class TextEditorState(
 		editManager.applyOperation(operation)
 	}
 
+	/** Inserts plain [string] at the cursor, applying the active typing style. */
 	fun insertStringAtCursor(string: String) = insertStringAtCursor(string.toAnnotatedString())
+
+	/**
+	 * Inserts [text] at the cursor, preserving its character-level spans and applying
+	 * the active typing style. Advances the cursor past the inserted text, accounting
+	 * for any embedded line breaks.
+	 */
 	fun insertStringAtCursor(text: AnnotatedString) {
 		val styledText = cursor.applyCursorStyle(text)
 
@@ -378,6 +464,7 @@ class TextEditorState(
 		editManager.applyOperation(operation)
 	}
 
+	/** Deletes the text covered by [range], leaving the cursor at the range start. */
 	fun delete(range: TextEditorRange) {
 		val operation = TextEditOperation.Delete(
 			range = range,
@@ -387,9 +474,20 @@ class TextEditorState(
 		editManager.applyOperation(operation)
 	}
 
+	/**
+	 * Replaces the text in [range] with plain [newText].
+	 * @param inheritStyle when true, the inserted text adopts the style of the
+	 * replaced text rather than carrying none.
+	 */
 	fun replace(range: TextEditorRange, newText: String, inheritStyle: Boolean = false) =
 		replace(range, newText.toAnnotatedString(), inheritStyle)
 
+	/**
+	 * Replaces the text in [range] with [newText], preserving the latter's
+	 * character-level spans and moving the cursor to the end of the inserted text.
+	 * @param inheritStyle when true, the inserted text adopts the style of the
+	 * replaced text rather than only its own spans.
+	 */
 	fun replace(range: TextEditorRange, newText: AnnotatedString, inheritStyle: Boolean = false) {
 		val operation = TextEditOperation.Replace(
 			range = range,
@@ -441,6 +539,10 @@ class TextEditorState(
 		updateBookKeeping(index..index)
 	}
 
+	/**
+	 * Rewrites every line in place by passing each line index and content through
+	 * [processor] and storing its result, then relays out the document.
+	 */
 	fun processLines(processor: (index: Int, line: AnnotatedString) -> AnnotatedString) {
 		for (i in textLines.indices) {
 			val line = textLines[i]
@@ -477,37 +579,51 @@ class TextEditorState(
 		updateBookKeeping()
 	}
 
+	/** True when the document holds a single empty line. */
 	fun isEmpty(): Boolean = textLines.size == 1 && textLines[0].isEmpty()
 
+	/** Reverts the most recent edit; no-op when [canUndo] is false. */
 	fun undo() {
 		editManager.undo()
 	}
 
+	/** Re-applies the most recently undone edit; no-op when [canRedo] is false. */
 	fun redo() {
 		editManager.redo()
 	}
 
+	/**
+	 * Returns the index into [lineOffsets] of the wrapped (visual) line containing
+	 * [position], or -1 if none matches.
+	 */
 	fun getWrappedLineIndex(position: CharLineOffset): Int {
 		return _lineOffsets.indexOfLast { lineOffset ->
 			lineOffset.line == position.line && lineOffset.wrapStartsAtIndex <= position.char
 		}
 	}
 
+	/** Returns the [LineWrap] (visual line) that contains [position]. */
 	fun getWrappedLine(position: CharLineOffset): LineWrap {
 		return _lineOffsets.last { lineOffset ->
 			lineOffset.line == position.line && lineOffset.wrapStartsAtIndex <= position.char
 		}
 	}
 
+	/** Returns the [LineWrap] at visual-line index [vLineIndex] in [lineOffsets]. */
 	fun getWrappedLine(vLineIndex: Int): LineWrap {
 		return _lineOffsets[vLineIndex]
 	}
 
+	/** Records the editor's new viewport [size] and re-wraps the document to fit. */
 	fun onViewportSizeChange(size: Size) {
 		viewportSize = size
 		updateBookKeeping()
 	}
 
+	/**
+	 * Returns the [CursorMetrics] (pixel position and line height) for the caret at
+	 * [CharLineOffset] [position], accounting for the current scroll offset.
+	 */
 	fun getPositionForOffset(position: CharLineOffset): CursorMetrics {
 		val (_, charIndex) = position
 
@@ -527,6 +643,11 @@ class TextEditorState(
 		)
 	}
 
+	/**
+	 * Maps a pixel [Offset] within the editor (e.g. a tap location) to the nearest
+	 * [CharLineOffset], accounting for scroll. Clamps to the end of the last line when
+	 * the point falls below all content.
+	 */
 	fun getOffsetAtPosition(offset: Offset): CharLineOffset {
 		if (_lineOffsets.isEmpty()) return CharLineOffset(0, 0)
 
@@ -557,6 +678,10 @@ class TextEditorState(
 		return CharLineOffset(lastLine, textLines[lastLine].length)
 	}
 
+	/**
+	 * Converts a flat character [index] into the document to its [CharLineOffset].
+	 * The inverse of [getCharacterIndex]; clamps to the document end when out of range.
+	 */
 	fun getOffsetAtCharacter(index: Int): CharLineOffset {
 		var remainingChars = index
 
@@ -574,6 +699,11 @@ class TextEditorState(
 		)
 	}
 
+	/**
+	 * Converts a [CharLineOffset] to its flat character index into the document.
+	 * The inverse of [getOffsetAtCharacter]; an out-of-bounds [offset] is clamped
+	 * into the document first.
+	 */
 	fun getCharacterIndex(offset: CharLineOffset): Int {
 		if (textLines.isEmpty()) return 0
 		// Belt-and-braces: applyOperation already clears stale selections, but
@@ -798,26 +928,38 @@ class TextEditorState(
 		_canRedo = editManager.history.hasRedoLevels()
 	}
 
+	/**
+	 * Applies a character-level [SpanStyle] (bold, color, etc.) to [range]. This is an
+	 * undoable text style; for block decorations like lists or code fences use
+	 * [addRichSpan].
+	 */
 	fun addStyleSpan(range: TextEditorRange, style: SpanStyle) {
 		editManager.addSpanStyle(range, style)
 		updateBookKeeping()
 	}
 
+	/** Removes a previously applied character-level [SpanStyle] from [range]. */
 	fun removeStyleSpan(range: TextEditorRange, style: SpanStyle) {
 		editManager.removeStyleSpan(range, style)
 		updateBookKeeping()
 	}
 
+	/**
+	 * Adds a [RichSpan] block decoration ([RichSpanStyle]: list, blockquote, code
+	 * fence, highlight) over [range]. For inline text styling use [addStyleSpan].
+	 */
 	fun addRichSpan(range: TextEditorRange, style: RichSpanStyle) {
 		editManager.addRichSpan(range, style)
 		updateBookKeeping()
 	}
 
+	/** Adds a [RichSpan] block decoration spanning [start] to [end]. */
 	fun addRichSpan(start: CharLineOffset, end: CharLineOffset, style: RichSpanStyle) {
 		editManager.addRichSpan(TextEditorRange(start, end), style)
 		updateBookKeeping()
 	}
 
+	/** Adds a [RichSpan] block decoration over the flat character range [start] until [end]. */
 	fun addRichSpan(start: Int, end: Int, style: RichSpanStyle) {
 		editManager.addRichSpan(
 			TextEditorRange(start.toCharLineOffset(), end.toCharLineOffset()),
@@ -826,11 +968,13 @@ class TextEditorState(
 		updateBookKeeping()
 	}
 
+	/** Removes the [RichSpan] block decoration of [style] spanning [start] to [end]. */
 	fun removeRichSpan(start: CharLineOffset, end: CharLineOffset, style: RichSpanStyle) {
 		editManager.removeRichSpan(TextEditorRange(start, end), style)
 		updateBookKeeping()
 	}
 
+	/** Removes the given [RichSpan], e.g. one returned by [findSpanAtPosition]. */
 	fun removeRichSpan(span: RichSpan) {
 		editManager.removeRichSpan(span.range, span.style)
 		updateBookKeeping()
@@ -849,6 +993,10 @@ class TextEditorState(
 		updateBookKeeping()
 	}
 
+	/**
+	 * Returns the [RichSpan] covering [position], or null if none does. Useful for
+	 * hit-testing taps on a list item or code fence.
+	 */
 	fun findSpanAtPosition(position: CharLineOffset): RichSpan? {
 		// Find the line wrap that contains our position
 		val lineWrap = _lineOffsets.lastOrNull { wrap ->
@@ -999,6 +1147,10 @@ class TextEditorState(
 
 	internal fun getLine(lineIndex: Int): AnnotatedString = textLines[lineIndex]
 
+	/**
+	 * Returns the plain text within [range], with newlines between spanned lines.
+	 * Use [getTextInRange] to keep character-level spans.
+	 */
 	fun getStringInRange(range: TextEditorRange): String {
 		return if (range.isSingleLine()) {
 			textLines[range.start.line].text.substring(range.start.char, range.end.char)
@@ -1020,6 +1172,10 @@ class TextEditorState(
 		}
 	}
 
+	/**
+	 * Returns the text within [range] as an [AnnotatedString], preserving its
+	 * character-level spans. Use [getStringInRange] for plain text only.
+	 */
 	fun getTextInRange(range: TextEditorRange): AnnotatedString {
 		return if (range.isSingleLine()) {
 			// For single line, we can use subSequence which preserves spans
@@ -1044,6 +1200,10 @@ class TextEditorState(
 		}
 	}
 
+	/**
+	 * Returns the entire document as a single [AnnotatedString], joining [textLines]
+	 * with newlines and preserving character-level spans.
+	 */
 	fun getAllText(): AnnotatedString {
 		return buildAnnotatedString {
 			textLines.forEachIndexed { index, line ->
@@ -1055,6 +1215,7 @@ class TextEditorState(
 		}
 	}
 
+	/** Returns the total character count of the document, counting newlines between lines. */
 	fun getTextLength(): Int {
 		val length = textLines.sumOf { line ->
 			line.length + 1
@@ -1062,6 +1223,10 @@ class TextEditorState(
 		return length - 1
 	}
 
+	/**
+	 * Returns a hash of the document content (text and spans), suitable for cheaply
+	 * detecting whether the document has changed.
+	 */
 	fun computeTextHash(): Int {
 		var hash = 3
 		val multiplier = 31

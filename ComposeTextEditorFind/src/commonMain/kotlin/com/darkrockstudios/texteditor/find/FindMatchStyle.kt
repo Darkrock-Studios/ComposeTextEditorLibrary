@@ -17,6 +17,7 @@ import com.darkrockstudios.texteditor.state.TextEditorState
 class FindMatchStyle(
 	private val color: Color = Color(0x60FFEB3B) // Semi-transparent yellow
 ) : RichSpanStyle {
+	/** Marks this highlight as an ephemeral overlay, keeping it out of the undo and edit history. */
 	override val isDecoration: Boolean = true
 
 	override fun DrawScope.drawCustomStyle(
@@ -56,6 +57,7 @@ class FindMatchStyle(
 class FindCurrentMatchStyle(
 	private val color: Color = Color(0x80FF9800) // Semi-transparent orange
 ) : RichSpanStyle {
+	/** Marks this highlight as an ephemeral overlay, keeping it out of the undo and edit history. */
 	override val isDecoration: Boolean = true
 
 	override fun DrawScope.drawCustomStyle(

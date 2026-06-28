@@ -11,6 +11,13 @@ import org.intellij.markdown.flavours.gfm.GFMFlavourDescriptor
 import org.intellij.markdown.flavours.gfm.GFMTokenTypes
 import org.intellij.markdown.parser.MarkdownParser
 
+/**
+ * Parses this string as GitHub Flavored Markdown and renders it into a styled
+ * [AnnotatedString].
+ *
+ * @param configuration Styling (fonts, colors, weights) applied to the parsed
+ * markdown elements.
+ */
 fun String.toAnnotatedStringFromMarkdown(
 	configuration: MarkdownConfiguration = MarkdownConfiguration.DEFAULT
 ): AnnotatedString {

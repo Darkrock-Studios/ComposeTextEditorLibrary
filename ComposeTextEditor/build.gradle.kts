@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.composeCompiler)
 	alias(libs.plugins.android.kmp.library)
 	alias(libs.plugins.mavenPublish)
+	alias(libs.plugins.dokka)
 }
 
 kotlin {
@@ -71,6 +72,18 @@ kotlin {
             }
         }
     }
+}
+
+dokka {
+	moduleName.set("Editor")
+	dokkaSourceSets.configureEach {
+		includes.from("Module.md")
+		sourceLink {
+			localDirectory.set(rootDir)
+			remoteUrl("https://github.com/Wavesonics/ComposeTextEditorLibrary/blob/main")
+			remoteLineSuffix.set("#L")
+		}
+	}
 }
 
 group = "com.darkrockstudios"

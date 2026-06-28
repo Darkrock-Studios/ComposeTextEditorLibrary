@@ -15,7 +15,11 @@ import com.darkrockstudios.texteditor.state.TextEditorState
 import kotlin.math.PI
 import kotlin.math.sin
 
+/**
+ * A [RichSpanStyle] that draws a red wavy underline beneath misspelled text.
+ */
 object SpellCheckStyle : RichSpanStyle {
+	/** Marks this as a non-editing decoration so it stays out of the undo/edit stream. */
 	override val isDecoration: Boolean = true
 
 	private val color: Color = Color.Red

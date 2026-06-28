@@ -10,6 +10,24 @@ import com.darkrockstudios.texteditor.state.rememberTextEditorState
 
 private val DefaultContentPadding = PaddingValues(16.dp)
 
+/**
+ * A ready-to-use rich text editor wrapped in a Material [Surface] with a focus
+ * border. This is the entry point most apps want.
+ *
+ * Hoist a [TextEditorState] with [rememberTextEditorState] if you need to read or
+ * mutate the content (set text, observe edits, apply spans); otherwise the default
+ * creates one for you. For an unwrapped editor with no surface or border, use
+ * [BasicTextEditor]; for a non-editable rendering of the same content, use
+ * [RichTextView].
+ *
+ * @param state Holds the document, cursor, selection, and undo history.
+ * @param contentPadding Padding between the surface edge and the text.
+ * @param enabled When `false`, the editor is read-only and cannot take focus.
+ * @param autoFocus Requests focus once when first composed.
+ * @param style Colors and text style for the editor and its gutter markers.
+ * @param onRichSpanClick Invoked when a rich span (link, list, blockquote, code
+ *   block, …) is tapped or right-clicked; return `true` to consume the event.
+ */
 @Composable
 fun TextEditor(
 	state: TextEditorState = rememberTextEditorState(),

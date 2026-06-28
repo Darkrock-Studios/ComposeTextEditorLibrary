@@ -7,6 +7,7 @@ plugins {
 	alias(libs.plugins.composeCompiler)
 	alias(libs.plugins.android.kmp.library)
 	alias(libs.plugins.mavenPublish)
+	alias(libs.plugins.dokka)
 }
 
 kotlin {
@@ -66,6 +67,18 @@ kotlin {
 				implementation(libs.kotlinx.coroutines.test)
 				implementation(libs.kotlinx.coroutines.test.jvm)
 			}
+		}
+	}
+}
+
+dokka {
+	moduleName.set("Find & Replace")
+	dokkaSourceSets.configureEach {
+		includes.from("Module.md")
+		sourceLink {
+			localDirectory.set(rootDir)
+			remoteUrl("https://github.com/Wavesonics/ComposeTextEditorLibrary/blob/main")
+			remoteLineSuffix.set("#L")
 		}
 	}
 }

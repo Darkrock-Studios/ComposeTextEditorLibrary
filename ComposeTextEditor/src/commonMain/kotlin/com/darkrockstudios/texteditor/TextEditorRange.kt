@@ -1,13 +1,24 @@
 package com.darkrockstudios.texteditor
 
+import com.darkrockstudios.texteditor.TextEditorRange.Companion.fromOffsets
 import com.darkrockstudios.texteditor.state.TextEditorState
 
+/**
+ * A region of the document from [start] (inclusive) to [end] (exclusive), the unit
+ * used for selections, edits, and rich spans. Build one from two [CharLineOffset]s
+ * with [fromOffsets] or [CharLineOffset.toRange], which order the endpoints for you.
+ */
 data class TextEditorRange(
 	val start: CharLineOffset,
 	val end: CharLineOffset
 ) {
+	/** True if the range begins and ends on the same line. */
 	fun isSingleLine(): Boolean = start.line == end.line
+
+	/** True if [end] is strictly after [start] (i.e. the range is non-empty and well-ordered). */
 	fun validate(): Boolean = end isAfter start
+
+	/** True if [lineIndex] falls within the lines this range covers. */
 	fun containsLine(lineIndex: Int): Boolean {
 		return lineIndex >= start.line && lineIndex <= end.line
 	}
@@ -45,6 +56,7 @@ data class TextEditorRange(
 		return startLine..endLine
 	}
 
+	/** True if this range and [other] overlap by at least one position. */
 	fun intersects(other: TextEditorRange): Boolean {
 		return !(
 				// This range ends before other starts
@@ -54,6 +66,7 @@ data class TextEditorRange(
 				)
 	}
 
+	/** Returns the smallest range that covers both this range and [other]. */
 	fun merge(other: TextEditorRange): TextEditorRange {
 		val newStart = if (this.start isBefore other.start) this.start else other.start
 		val newEnd = if (this.end isAfter other.end) this.end else other.end
@@ -61,6 +74,7 @@ data class TextEditorRange(
 	}
 
 	companion object {
+		/** Builds a range from two endpoints in any order, ordering them so `start <= end`. */
 		fun fromOffsets(offset1: CharLineOffset, offset2: CharLineOffset): TextEditorRange {
 			IntRange
 			return if (offset1 isBefore offset2) {
@@ -73,6 +87,7 @@ data class TextEditorRange(
 }
 
 
+/** Builds a [TextEditorRange] from this position to [end], ordering the endpoints. */
 fun CharLineOffset.toRange(end: CharLineOffset): TextEditorRange {
 	return TextEditorRange.fromOffsets(this, end)
 }
