@@ -1,0 +1,374 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>FindState</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../index.html" tabindex="1">
+                    Compose Text Editor
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true" data-filter=":ComposeTextEditorFind/commonMain">common</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ComposeTextEditorFind/commonMain" data-filter=":ComposeTextEditorFind/commonMain">
+                                <span class="checkbox--icon"></span>
+                                common
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    Compose Text Editor
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="Find &amp; Replace::com.darkrockstudios.texteditor.find/FindState///PointingToDeclaration//82919966">
+  <div class="breadcrumbs"><a href="../../index.html">Find &amp; Replace</a><span class="delimiter">/</span><a href="../index.html">com.darkrockstudios.texteditor.find</a><span class="delimiter">/</span><span class="current">FindState</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Find</span><wbr><span><span>State</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorFind/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">FindState</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>textState<span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">, </span></span><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span></span></span><span class="token punctuation">)</span><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/Wavesonics/ComposeTextEditorLibrary/blob/main/ComposeTextEditorFind/src/commonMain/kotlin/com/darkrockstudios/texteditor/find/FindState.kt#L25">source</a>)</span></span></div><p class="paragraph">State management for the Find feature.</p><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorFind/commonMain" data-filterable-set=":ComposeTextEditorFind/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>text</span><wbr><span><span>State</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The TextEditorState to search within</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorFind/commonMain" data-filterable-set=":ComposeTextEditorFind/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>scope</span></span></u></div></span></div><div><div class="title"><p class="paragraph">CoroutineScope for handling text change reactions</p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="-1345239421%2FConstructors%2F82919966" anchor-label="FindState" id="-1345239421%2FConstructors%2F82919966" data-filterable-set=":ComposeTextEditorFind/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":ComposeTextEditorFind/commonMain" data-filterable-set=":ComposeTextEditorFind/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-find-state.html"><span>Find</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1345239421%2FConstructors%2F82919966"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorFind/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">textState<span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">, </span></span><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="1201670281%2FProperties%2F82919966" anchor-label="caseSensitive" id="1201670281%2FProperties%2F82919966" data-filterable-set=":ComposeTextEditorFind/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorFind/commonMain" data-filterable-set=":ComposeTextEditorFind/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="case-sensitive.html"><span>case</span><wbr><span><span>Sensitive</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1201670281%2FProperties%2F82919966"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorFind/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="case-sensitive.html">caseSensitive</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2087234455%2FProperties%2F82919966" anchor-label="currentMatchIndex" id="-2087234455%2FProperties%2F82919966" data-filterable-set=":ComposeTextEditorFind/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorFind/commonMain" data-filterable-set=":ComposeTextEditorFind/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="current-match-index.html"><span>current</span><wbr><span>Match</span><wbr><span><span>Index</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2087234455%2FProperties%2F82919966"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorFind/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="current-match-index.html">currentMatchIndex</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="767626913%2FProperties%2F82919966" anchor-label="matchCount" id="767626913%2FProperties%2F82919966" data-filterable-set=":ComposeTextEditorFind/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorFind/commonMain" data-filterable-set=":ComposeTextEditorFind/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="match-count.html"><span>match</span><wbr><span><span>Count</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="767626913%2FProperties%2F82919966"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorFind/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="match-count.html">matchCount</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-618773828%2FProperties%2F82919966" anchor-label="matches" id="-618773828%2FProperties%2F82919966" data-filterable-set=":ComposeTextEditorFind/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorFind/commonMain" data-filterable-set=":ComposeTextEditorFind/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="matches.html"><span><span>matches</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-618773828%2FProperties%2F82919966"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorFind/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="matches.html">matches</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor/-text-editor-range/index.html">TextEditorRange</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-570031801%2FProperties%2F82919966" anchor-label="query" id="-570031801%2FProperties%2F82919966" data-filterable-set=":ComposeTextEditorFind/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorFind/commonMain" data-filterable-set=":ComposeTextEditorFind/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="query.html"><span><span>query</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-570031801%2FProperties%2F82919966"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorFind/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="query.html">query</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-307149525%2FProperties%2F82919966" anchor-label="textState" id="-307149525%2FProperties%2F82919966" data-filterable-set=":ComposeTextEditorFind/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorFind/commonMain" data-filterable-set=":ComposeTextEditorFind/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="text-state.html"><span>text</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-307149525%2FProperties%2F82919966"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorFind/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="text-state.html">textState</a><span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="2013651674%2FFunctions%2F82919966" anchor-label="clearSearch" id="2013651674%2FFunctions%2F82919966" data-filterable-set=":ComposeTextEditorFind/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorFind/commonMain" data-filterable-set=":ComposeTextEditorFind/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-search.html"><span>clear</span><wbr><span><span>Search</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2013651674%2FFunctions%2F82919966"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorFind/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="clear-search.html"><span class="token function">clearSearch</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Clear the search - remove all highlights and reset state.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1868023632%2FFunctions%2F82919966" anchor-label="dispose" id="1868023632%2FFunctions%2F82919966" data-filterable-set=":ComposeTextEditorFind/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorFind/commonMain" data-filterable-set=":ComposeTextEditorFind/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="dispose.html"><span><span>dispose</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1868023632%2FFunctions%2F82919966"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorFind/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="dispose.html"><span class="token function">dispose</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Cancel any ongoing operations. Call this when done with FindState.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="673874527%2FFunctions%2F82919966" anchor-label="findNext" id="673874527%2FFunctions%2F82919966" data-filterable-set=":ComposeTextEditorFind/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorFind/commonMain" data-filterable-set=":ComposeTextEditorFind/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="find-next.html"><span>find</span><wbr><span><span>Next</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="673874527%2FFunctions%2F82919966"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorFind/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="find-next.html"><span class="token function">findNext</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Navigate to the next match.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1379959717%2FFunctions%2F82919966" anchor-label="findPrevious" id="-1379959717%2FFunctions%2F82919966" data-filterable-set=":ComposeTextEditorFind/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorFind/commonMain" data-filterable-set=":ComposeTextEditorFind/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="find-previous.html"><span>find</span><wbr><span><span>Previous</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1379959717%2FFunctions%2F82919966"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorFind/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="find-previous.html"><span class="token function">findPrevious</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Navigate to the previous match.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1096019371%2FFunctions%2F82919966" anchor-label="goToMatch" id="1096019371%2FFunctions%2F82919966" data-filterable-set=":ComposeTextEditorFind/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorFind/commonMain" data-filterable-set=":ComposeTextEditorFind/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="go-to-match.html"><span>go</span><wbr><span>To</span><wbr><span><span>Match</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1096019371%2FFunctions%2F82919966"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorFind/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="go-to-match.html"><span class="token function">goToMatch</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">index<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Jump to a specific match by index.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1139114554%2FFunctions%2F82919966" anchor-label="replaceAll" id="-1139114554%2FFunctions%2F82919966" data-filterable-set=":ComposeTextEditorFind/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorFind/commonMain" data-filterable-set=":ComposeTextEditorFind/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="replace-all.html"><span>replace</span><wbr><span><span>All</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1139114554%2FFunctions%2F82919966"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorFind/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="replace-all.html"><span class="token function">replaceAll</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">replaceText<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Replace all matches with the given text.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1538477922%2FFunctions%2F82919966" anchor-label="replaceCurrent" id="-1538477922%2FFunctions%2F82919966" data-filterable-set=":ComposeTextEditorFind/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorFind/commonMain" data-filterable-set=":ComposeTextEditorFind/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="replace-current.html"><span>replace</span><wbr><span><span>Current</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1538477922%2FFunctions%2F82919966"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorFind/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="replace-current.html"><span class="token function">replaceCurrent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">replaceText<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Replace the current match with the given text and move to the next match.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="475061729%2FFunctions%2F82919966" anchor-label="search" id="475061729%2FFunctions%2F82919966" data-filterable-set=":ComposeTextEditorFind/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorFind/commonMain" data-filterable-set=":ComposeTextEditorFind/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="search.html"><span><span>search</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="475061729%2FFunctions%2F82919966"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorFind/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="search.html"><span class="token function">search</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">newQuery<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Execute a search with the given query. Updates highlights and jumps to the nearest match.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="208425986%2FFunctions%2F82919966" anchor-label="toggleCaseSensitive" id="208425986%2FFunctions%2F82919966" data-filterable-set=":ComposeTextEditorFind/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorFind/commonMain" data-filterable-set=":ComposeTextEditorFind/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="toggle-case-sensitive.html"><span>toggle</span><wbr><span>Case</span><wbr><span><span>Sensitive</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="208425986%2FFunctions%2F82919966"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorFind/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="toggle-case-sensitive.html"><span class="token function">toggleCaseSensitive</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sensitive<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Toggle case sensitivity and re-run search if there's an active query.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

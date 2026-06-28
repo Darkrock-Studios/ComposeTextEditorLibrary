@@ -1,0 +1,321 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>PlatformTextEditorExtensions</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../index.html" tabindex="1">
+                    Compose Text Editor
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":ComposeTextEditor/androidMain">android</button>
+                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true" data-filter=":ComposeTextEditor/commonMain">common</button>
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":ComposeTextEditor/desktopMain">desktop</button>
+                <button class="platform-tag platform-selector native-like" data-active="" aria-pressed="true" data-filter=":ComposeTextEditor/iosMain">ios</button>
+                <button class="platform-tag platform-selector wasm-like" data-active="" aria-pressed="true" data-filter=":ComposeTextEditor/wasmJsMain">wasmJs</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ComposeTextEditor/androidMain" data-filter=":ComposeTextEditor/androidMain">
+                                <span class="checkbox--icon"></span>
+                                android
+                            </label>
+                        </li>
+                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ComposeTextEditor/commonMain" data-filter=":ComposeTextEditor/commonMain">
+                                <span class="checkbox--icon"></span>
+                                common
+                            </label>
+                        </li>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ComposeTextEditor/desktopMain" data-filter=":ComposeTextEditor/desktopMain">
+                                <span class="checkbox--icon"></span>
+                                desktop
+                            </label>
+                        </li>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ComposeTextEditor/iosMain" data-filter=":ComposeTextEditor/iosMain">
+                                <span class="checkbox--icon"></span>
+                                ios
+                            </label>
+                        </li>
+                        <li role="option" class="dropdown--option platform-selector-option wasm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ComposeTextEditor/wasmJsMain" data-filter=":ComposeTextEditor/wasmJsMain">
+                                <span class="checkbox--icon"></span>
+                                wasmJs
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    Compose Text Editor
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="Editor::com.darkrockstudios.texteditor.state/PlatformTextEditorExtensions///PointingToDeclaration//-1510173098">
+  <div class="breadcrumbs"><a href="../../index.html">Editor</a><span class="delimiter">/</span><a href="../index.html">com.darkrockstudios.texteditor.state</a><span class="delimiter">/</span><span class="current">PlatformTextEditorExtensions</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Platform</span><wbr><span>Text</span><wbr><span>Editor</span><wbr><span><span>Extensions</span></span></h1>
+    <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+      <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain" data-active="" data-toggle=":ComposeTextEditor/androidMain">android</button><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain" data-toggle=":ComposeTextEditor/commonMain">common</button><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/desktopMain" data-filterable-set=":ComposeTextEditor/desktopMain" data-toggle=":ComposeTextEditor/desktopMain">desktop</button><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/iosMain" data-filterable-set=":ComposeTextEditor/iosMain" data-toggle=":ComposeTextEditor/iosMain">ios</button><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/wasmJsMain" data-filterable-set=":ComposeTextEditor/wasmJsMain" data-toggle=":ComposeTextEditor/wasmJsMain">wasmJs</button></div>
+<div class="content sourceset-dependent-content" data-togglable=":ComposeTextEditor/androidMain"><div class="symbol monospace"><span class="token keyword">actual </span><span class="token keyword">class </span><a href="index.html">PlatformTextEditorExtensions</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="../-text-editor-state/index.html">TextEditorState</a></span></span><span class="token punctuation">)</span><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/Wavesonics/ComposeTextEditorLibrary/blob/main/ComposeTextEditor/src/androidMain/kotlin/com/darkrockstudios/texteditor/state/PlatformTextEditorExtensions.android.kt#L13">source</a>)</span></span></div><p class="paragraph">Android-specific extensions for TextEditorState. Contains IME-related functionality for cursor anchor monitoring.</p></div><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">class </span><a href="index.html">PlatformTextEditorExtensions</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="../-text-editor-state/index.html">TextEditorState</a></span></span><span class="token punctuation">)</span><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/Wavesonics/ComposeTextEditorLibrary/blob/main/ComposeTextEditor/src/commonMain/kotlin/com/darkrockstudios/texteditor/state/PlatformTextEditorExtensions.kt#L10">source</a>)</span></span></div><p class="paragraph">Platform-specific extensions for TextEditorState. Each platform actual adds its own platform-specific members.</p><p class="paragraph">On Android: Contains IME-related functionality (cursor anchor monitoring, etc.) On Desktop/WASM: Empty class (no-op)</p></div><div class="content sourceset-dependent-content" data-togglable=":ComposeTextEditor/desktopMain"><div class="symbol monospace"><span class="token keyword">actual </span><span class="token keyword">class </span><a href="index.html">PlatformTextEditorExtensions</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="../-text-editor-state/index.html">TextEditorState</a></span></span><span class="token punctuation">)</span><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/Wavesonics/ComposeTextEditorLibrary/blob/main/ComposeTextEditor/src/desktopMain/kotlin/com/darkrockstudios/texteditor/state/PlatformTextEditorExtensions.desktop.kt#L8">source</a>)</span></span></div><p class="paragraph">Desktop-specific extensions for TextEditorState. Empty implementation - desktop doesn't have IME-specific requirements.</p></div><div class="content sourceset-dependent-content" data-togglable=":ComposeTextEditor/iosMain"><div class="symbol monospace"><span class="token keyword">actual </span><span class="token keyword">class </span><a href="index.html">PlatformTextEditorExtensions</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a></span></span><span class="token punctuation">)</span><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/Wavesonics/ComposeTextEditorLibrary/blob/main/ComposeTextEditor/src/iosMain/kotlin/com/darkrockstudios/texteditor/state/PlatformTextEditorExtensions.ios.kt#L9">source</a>)</span></span></div><p class="paragraph">iOS-specific extensions for TextEditorState. Empty implementation - iOS doesn't have Android-style IME requirements. Compose Multiplatform handles iOS keyboard integration internally.</p></div><div class="content sourceset-dependent-content" data-togglable=":ComposeTextEditor/wasmJsMain"><div class="symbol monospace"><span class="token keyword">actual </span><span class="token keyword">class </span><a href="index.html">PlatformTextEditorExtensions</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a></span></span><span class="token punctuation">)</span><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/Wavesonics/ComposeTextEditorLibrary/blob/main/ComposeTextEditor/src/wasmJsMain/kotlin/com/darkrockstudios/texteditor/state/PlatformTextEditorExtensions.wasmJs.kt#L8">source</a>)</span></span></div><p class="paragraph">WASM-specific extensions for TextEditorState. Empty implementation - WASM doesn't have IME-specific requirements.</p></div>    </div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="2027661640%2FConstructors%2F-1510173098" anchor-label="PlatformTextEditorExtensions" id="2027661640%2FConstructors%2F-1510173098" data-filterable-set=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain" data-filterable-set=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-platform-text-editor-extensions.html"><span>Platform</span><wbr><span>Text</span><wbr><span>Editor</span><wbr><span><span>Extensions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2027661640%2FConstructors%2F-1510173098"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain" data-active="" data-toggle=":ComposeTextEditor/androidMain">android</button><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain" data-toggle=":ComposeTextEditor/commonMain">common</button><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/desktopMain" data-filterable-set=":ComposeTextEditor/desktopMain" data-toggle=":ComposeTextEditor/desktopMain">desktop</button><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/iosMain" data-filterable-set=":ComposeTextEditor/iosMain" data-toggle=":ComposeTextEditor/iosMain">ios</button><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/wasmJsMain" data-filterable-set=":ComposeTextEditor/wasmJsMain" data-toggle=":ComposeTextEditor/wasmJsMain">wasmJs</button></div>
+<div class="content sourceset-dependent-content" data-togglable=":ComposeTextEditor/androidMain"><div class="symbol monospace"><span class="token keyword">actual </span><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="../-text-editor-state/index.html">TextEditorState</a></span></span><span class="token punctuation">)</span></div></div><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="../-text-editor-state/index.html">TextEditorState</a></span></span><span class="token punctuation">)</span></div></div><div class="content sourceset-dependent-content" data-togglable=":ComposeTextEditor/desktopMain"><div class="symbol monospace"><span class="token keyword">actual </span><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="../-text-editor-state/index.html">TextEditorState</a></span></span><span class="token punctuation">)</span></div></div><div class="content sourceset-dependent-content" data-togglable=":ComposeTextEditor/iosMain"><div class="symbol monospace"><span class="token keyword">actual </span><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a></span></span><span class="token punctuation">)</span></div></div><div class="content sourceset-dependent-content" data-togglable=":ComposeTextEditor/wasmJsMain"><div class="symbol monospace"><span class="token keyword">actual </span><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a></span></span><span class="token punctuation">)</span></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="-1542728444%2FProperties%2F270166517" anchor-label="cursorAnchorMonitoringEnabled" id="-1542728444%2FProperties%2F270166517" data-filterable-set=":ComposeTextEditor/androidMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="cursor-anchor-monitoring-enabled.html"><span>cursor</span><wbr><span>Anchor</span><wbr><span>Monitoring</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1542728444%2FProperties%2F270166517"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain" data-active="" data-toggle=":ComposeTextEditor/androidMain">android</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/androidMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="cursor-anchor-monitoring-enabled.html">cursorAnchorMonitoringEnabled</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">When true, cursor anchor info should be sent to the IME whenever the cursor moves. Set by requestCursorUpdates when IME requests CURSOR_UPDATE_MONITOR mode.</p></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1311770530%2FProperties%2F270166517" anchor-label="extractedTextMonitorEnabled" id="-1311770530%2FProperties%2F270166517" data-filterable-set=":ComposeTextEditor/androidMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="extracted-text-monitor-enabled.html"><span>extracted</span><wbr><span>Text</span><wbr><span>Monitor</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1311770530%2FProperties%2F270166517"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain" data-active="" data-toggle=":ComposeTextEditor/androidMain">android</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/androidMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-volatile/index.html"><span class="token annotation builtin">Volatile</span></a></div></div><span class="token keyword">var </span><a href="extracted-text-monitor-enabled.html">extractedTextMonitorEnabled</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">When true, <a href="https://developer.android.com/reference/kotlin/android/view/inputmethod/InputMethodManager.html#updateExtractedText(android.view.View,kotlin.Int,android.view.inputmethod.ExtractedText)">InputMethodManager.updateExtractedText</a> should be sent on every text/selection change. Set when an IME requests <code class="lang-kotlin">getExtractedText</code> with <code class="lang-kotlin">GET_EXTRACTED_TEXT_MONITOR</code>.</p></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1862439206%2FProperties%2F270166517" anchor-label="extractedTextMonitorToken" id="1862439206%2FProperties%2F270166517" data-filterable-set=":ComposeTextEditor/androidMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="extracted-text-monitor-token.html"><span>extracted</span><wbr><span>Text</span><wbr><span>Monitor</span><wbr><span><span>Token</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1862439206%2FProperties%2F270166517"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain" data-active="" data-toggle=":ComposeTextEditor/androidMain">android</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/androidMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-volatile/index.html"><span class="token annotation builtin">Volatile</span></a></div></div><span class="token keyword">var </span><a href="extracted-text-monitor-token.html">extractedTextMonitorToken</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Token supplied alongside the monitor request; echoed back in <code class="lang-kotlin">updateExtractedText</code>.</p></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="607979293%2FProperties%2F270166517" anchor-label="isInBatchEdit" id="607979293%2FProperties%2F270166517" data-filterable-set=":ComposeTextEditor/androidMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-in-batch-edit.html"><span>is</span><wbr><span>In</span><wbr><span>Batch</span><wbr><span><span>Edit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="607979293%2FProperties%2F270166517"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain" data-active="" data-toggle=":ComposeTextEditor/androidMain">android</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/androidMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="is-in-batch-edit.html">isInBatchEdit</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether a batch edit is currently in progress. During batch edits, IME cursor sync updates are suppressed to avoid unnecessary intermediate updates.</p></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="2011641357%2FFunctions%2F270166517" anchor-label="beginBatchEdit" id="2011641357%2FFunctions%2F270166517" data-filterable-set=":ComposeTextEditor/androidMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="begin-batch-edit.html"><span>begin</span><wbr><span>Batch</span><wbr><span><span>Edit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2011641357%2FFunctions%2F270166517"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain" data-active="" data-toggle=":ComposeTextEditor/androidMain">android</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/androidMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="begin-batch-edit.html"><span class="token function">beginBatchEdit</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Begins a batch edit. Call <a href="end-batch-edit.html">endBatchEdit</a> when done. Batch edits can be nested.</p></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1575049089%2FFunctions%2F270166517" anchor-label="endBatchEdit" id="-1575049089%2FFunctions%2F270166517" data-filterable-set=":ComposeTextEditor/androidMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="end-batch-edit.html"><span>end</span><wbr><span>Batch</span><wbr><span><span>Edit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1575049089%2FFunctions%2F270166517"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain" data-active="" data-toggle=":ComposeTextEditor/androidMain">android</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/androidMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="end-batch-edit.html"><span class="token function">endBatchEdit</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Ends a batch edit started by <a href="begin-batch-edit.html">beginBatchEdit</a>.</p></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1947455181%2FFunctions%2F270166517" anchor-label="resetBatchEdit" id="-1947455181%2FFunctions%2F270166517" data-filterable-set=":ComposeTextEditor/androidMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reset-batch-edit.html"><span>reset</span><wbr><span>Batch</span><wbr><span><span>Edit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1947455181%2FFunctions%2F270166517"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain" data-active="" data-toggle=":ComposeTextEditor/androidMain">android</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/androidMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="reset-batch-edit.html"><span class="token function">resetBatchEdit</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Resets batch-edit state to zero. Called from <code class="lang-kotlin">closeConnection</code> so a stale depth from a now-dead InputConnection doesn't suppress future IME updates.</p></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1971166809%2FFunctions%2F270166517" anchor-label="sendCursorAnchorInfo" id="-1971166809%2FFunctions%2F270166517" data-filterable-set=":ComposeTextEditor/androidMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send-cursor-anchor-info.html"><span>send</span><wbr><span>Cursor</span><wbr><span>Anchor</span><wbr><span><span>Info</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1971166809%2FFunctions%2F270166517"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain" data-active="" data-toggle=":ComposeTextEditor/androidMain">android</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/androidMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="send-cursor-anchor-info.html"><span class="token function">sendCursorAnchorInfo</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sends cursor anchor information to the IME. This provides the keyboard with cursor position for floating toolbars and other UI.</p></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

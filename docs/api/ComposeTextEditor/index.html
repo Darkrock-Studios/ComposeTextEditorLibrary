@@ -1,0 +1,381 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Editor</title>
+<link href="../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../scripts/sourceset_dependencies.js" async></script>
+<link href="../styles/style.css" rel="Stylesheet">
+<link href="../styles/main.css" rel="Stylesheet">
+<link href="../styles/prism.css" rel="Stylesheet">
+<link href="../styles/logo-styles.css" rel="Stylesheet">
+<link href="../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../scripts/main.js" defer></script>
+<script type="text/javascript" src="../scripts/prism.js" async></script>
+<script type="text/javascript" src="../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../index.html" tabindex="1">
+                    Compose Text Editor
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":ComposeTextEditor/androidMain">android</button>
+                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true" data-filter=":ComposeTextEditor/commonMain">common</button>
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":ComposeTextEditor/desktopMain">desktop</button>
+                <button class="platform-tag platform-selector native-like" data-active="" aria-pressed="true" data-filter=":ComposeTextEditor/iosMain">ios</button>
+                <button class="platform-tag platform-selector wasm-like" data-active="" aria-pressed="true" data-filter=":ComposeTextEditor/wasmJsMain">wasmJs</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ComposeTextEditor/androidMain" data-filter=":ComposeTextEditor/androidMain">
+                                <span class="checkbox--icon"></span>
+                                android
+                            </label>
+                        </li>
+                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ComposeTextEditor/commonMain" data-filter=":ComposeTextEditor/commonMain">
+                                <span class="checkbox--icon"></span>
+                                common
+                            </label>
+                        </li>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ComposeTextEditor/desktopMain" data-filter=":ComposeTextEditor/desktopMain">
+                                <span class="checkbox--icon"></span>
+                                desktop
+                            </label>
+                        </li>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ComposeTextEditor/iosMain" data-filter=":ComposeTextEditor/iosMain">
+                                <span class="checkbox--icon"></span>
+                                ios
+                            </label>
+                        </li>
+                        <li role="option" class="dropdown--option platform-selector-option wasm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ComposeTextEditor/wasmJsMain" data-filter=":ComposeTextEditor/wasmJsMain">
+                                <span class="checkbox--icon"></span>
+                                wasmJs
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    Compose Text Editor
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" id="content" pageids="Editor::////PointingToDeclaration//-1510173098">
+  <div class="breadcrumbs"></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Editor</span></span></h1>
+    <div class="platform-hinted UnderCoverText with-platform-tabs" data-platform-hinted="data-platform-hinted">
+      <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain" data-active="" data-toggle=":ComposeTextEditor/androidMain">android</button><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain" data-toggle=":ComposeTextEditor/commonMain">common</button><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/desktopMain" data-filterable-set=":ComposeTextEditor/desktopMain" data-toggle=":ComposeTextEditor/desktopMain">desktop</button><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/iosMain" data-filterable-set=":ComposeTextEditor/iosMain" data-toggle=":ComposeTextEditor/iosMain">ios</button><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/wasmJsMain" data-filterable-set=":ComposeTextEditor/wasmJsMain" data-toggle=":ComposeTextEditor/wasmJsMain">wasmJs</button></div>
+<div class="content sourceset-dependent-content" data-togglable=":ComposeTextEditor/androidMain"><p class="paragraph">A Kotlin Multiplatform rich text editor for Compose — a from-scratch alternative to <code class="lang-kotlin">BasicTextField</code> that supports rich spans, block decorations (lists, blockquotes, code fences, images), efficient long-form rendering, and a per-edit change stream.</p><blockquote class="quotation"><p class="paragraph">**Try it live: ** <a href="https://wavesonics.github.io/ComposeTextEditorLibrary/">interactive demo running on Wasm »</a></p></blockquote><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">implementation("com.darkrockstudios:composetexteditor:2.0.0")</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">The find/replace and spell-check features live in separate add-on modules; see the <strong>Find </strong>&amp;<strong> Replace</strong> and <strong>Spell Check</strong> modules.</p><h2 class="">Getting started</h2><p class="paragraph">Hoist a <a href="com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a> with <a href="com.darkrockstudios.texteditor.state/remember-text-editor-state.html">rememberTextEditorState</a> and hand it to <a href="com.darkrockstudios.texteditor/-text-editor.html">TextEditor</a>:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">@Composable<br>fun Notepad() {<br>    val state = rememberTextEditorState()<br><br>    TextEditor(<br>        state = state,<br>        modifier = Modifier.fillMaxSize(),<br>    )<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">Seed the editor with content, then read it back or react to edits through the state:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val state = rememberTextEditorState(AnnotatedString("Hello, world!"))<br><br>// Read the whole document at any time:<br>val text: AnnotatedString = state.getAllText()<br><br>// Or react to individual edits as the user types:<br>LaunchedEffect(state) {<br>    state.editOperations.collect { op -&gt; /* one change per emission */ }<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">Colors and text style come from <a href="com.darkrockstudios.texteditor/-text-editor-style/index.html">TextEditorStyle</a>. Use <a href="com.darkrockstudios.texteditor/remember-text-editor-style.html">rememberTextEditorStyle</a> to derive sensible defaults from your <code class="lang-kotlin">MaterialTheme</code>:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">TextEditor(<br>    state = state,<br>    style = rememberTextEditorStyle(<br>        placeholderText = "Start typing…",<br>    ),<br>)</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">For an editor with no surface/border chrome, a custom context menu, or per-line decoration, drop down to <a href="com.darkrockstudios.texteditor/-basic-text-editor.html">BasicTextEditor</a>. For a read-only rendering of the same content, use <a href="com.darkrockstudios.texteditor/-rich-text-view.html">RichTextView</a>.</p><h2 class="">Markdown</h2><p class="paragraph">Wrap a state with <a href="com.darkrockstudios.texteditor.markdown/with-markdown.html">withMarkdown</a> to import and export GitHub-flavored Markdown and toggle block styles (lists, blockquotes, code fences):</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val state = rememberTextEditorState()<br>val markdown = remember(state) { state.withMarkdown() }<br><br>// Import handles both inline (**bold**, *italic*, `code`) and block elements<br>// (headings, lists, blockquotes, code fences, horizontal rules):<br>LaunchedEffect(markdown) {<br>    markdown.importMarkdown(<br>        """<br>        # Title<br><br>        Some **bold** and *italic* text.<br><br>        - one<br>        - two<br>        """.trimIndent()<br>    )<br>}<br><br>TextEditor(state = state)<br><br>// Export the current document back to a Markdown string:<br>val source: String = markdown.exportAsMarkdown()</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">To render only inline Markdown into an <code class="lang-kotlin">AnnotatedString</code> (no block handling), use <a href="com.darkrockstudios.texteditor.markdown/to-annotated-string-from-markdown.html">String.toAnnotatedStringFromMarkdown</a> — but prefer <code class="lang-kotlin">importMarkdown</code> whenever the source contains block elements.</p></div><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><p class="paragraph">A Kotlin Multiplatform rich text editor for Compose — a from-scratch alternative to <code class="lang-kotlin">BasicTextField</code> that supports rich spans, block decorations (lists, blockquotes, code fences, images), efficient long-form rendering, and a per-edit change stream.</p><blockquote class="quotation"><p class="paragraph">**Try it live: ** <a href="https://wavesonics.github.io/ComposeTextEditorLibrary/">interactive demo running on Wasm »</a></p></blockquote><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">implementation("com.darkrockstudios:composetexteditor:2.0.0")</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">The find/replace and spell-check features live in separate add-on modules; see the <strong>Find </strong>&amp;<strong> Replace</strong> and <strong>Spell Check</strong> modules.</p><h2 class="">Getting started</h2><p class="paragraph">Hoist a <a href="com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a> with <a href="com.darkrockstudios.texteditor.state/remember-text-editor-state.html">rememberTextEditorState</a> and hand it to <a href="com.darkrockstudios.texteditor/-text-editor.html">TextEditor</a>:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">@Composable<br>fun Notepad() {<br>    val state = rememberTextEditorState()<br><br>    TextEditor(<br>        state = state,<br>        modifier = Modifier.fillMaxSize(),<br>    )<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">Seed the editor with content, then read it back or react to edits through the state:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val state = rememberTextEditorState(AnnotatedString("Hello, world!"))<br><br>// Read the whole document at any time:<br>val text: AnnotatedString = state.getAllText()<br><br>// Or react to individual edits as the user types:<br>LaunchedEffect(state) {<br>    state.editOperations.collect { op -&gt; /* one change per emission */ }<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">Colors and text style come from <a href="com.darkrockstudios.texteditor/-text-editor-style/index.html">TextEditorStyle</a>. Use <a href="com.darkrockstudios.texteditor/remember-text-editor-style.html">rememberTextEditorStyle</a> to derive sensible defaults from your <code class="lang-kotlin">MaterialTheme</code>:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">TextEditor(<br>    state = state,<br>    style = rememberTextEditorStyle(<br>        placeholderText = "Start typing…",<br>    ),<br>)</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">For an editor with no surface/border chrome, a custom context menu, or per-line decoration, drop down to <a href="com.darkrockstudios.texteditor/-basic-text-editor.html">BasicTextEditor</a>. For a read-only rendering of the same content, use <a href="com.darkrockstudios.texteditor/-rich-text-view.html">RichTextView</a>.</p><h2 class="">Markdown</h2><p class="paragraph">Wrap a state with <a href="com.darkrockstudios.texteditor.markdown/with-markdown.html">withMarkdown</a> to import and export GitHub-flavored Markdown and toggle block styles (lists, blockquotes, code fences):</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val state = rememberTextEditorState()<br>val markdown = remember(state) { state.withMarkdown() }<br><br>// Import handles both inline (**bold**, *italic*, `code`) and block elements<br>// (headings, lists, blockquotes, code fences, horizontal rules):<br>LaunchedEffect(markdown) {<br>    markdown.importMarkdown(<br>        """<br>        # Title<br><br>        Some **bold** and *italic* text.<br><br>        - one<br>        - two<br>        """.trimIndent()<br>    )<br>}<br><br>TextEditor(state = state)<br><br>// Export the current document back to a Markdown string:<br>val source: String = markdown.exportAsMarkdown()</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">To render only inline Markdown into an <code class="lang-kotlin">AnnotatedString</code> (no block handling), use <a href="com.darkrockstudios.texteditor.markdown/to-annotated-string-from-markdown.html">String.toAnnotatedStringFromMarkdown</a> — but prefer <code class="lang-kotlin">importMarkdown</code> whenever the source contains block elements.</p></div><div class="content sourceset-dependent-content" data-togglable=":ComposeTextEditor/desktopMain"><p class="paragraph">A Kotlin Multiplatform rich text editor for Compose — a from-scratch alternative to <code class="lang-kotlin">BasicTextField</code> that supports rich spans, block decorations (lists, blockquotes, code fences, images), efficient long-form rendering, and a per-edit change stream.</p><blockquote class="quotation"><p class="paragraph">**Try it live: ** <a href="https://wavesonics.github.io/ComposeTextEditorLibrary/">interactive demo running on Wasm »</a></p></blockquote><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">implementation("com.darkrockstudios:composetexteditor:2.0.0")</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">The find/replace and spell-check features live in separate add-on modules; see the <strong>Find </strong>&amp;<strong> Replace</strong> and <strong>Spell Check</strong> modules.</p><h2 class="">Getting started</h2><p class="paragraph">Hoist a <a href="com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a> with <a href="com.darkrockstudios.texteditor.state/remember-text-editor-state.html">rememberTextEditorState</a> and hand it to <a href="com.darkrockstudios.texteditor/-text-editor.html">TextEditor</a>:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">@Composable<br>fun Notepad() {<br>    val state = rememberTextEditorState()<br><br>    TextEditor(<br>        state = state,<br>        modifier = Modifier.fillMaxSize(),<br>    )<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">Seed the editor with content, then read it back or react to edits through the state:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val state = rememberTextEditorState(AnnotatedString("Hello, world!"))<br><br>// Read the whole document at any time:<br>val text: AnnotatedString = state.getAllText()<br><br>// Or react to individual edits as the user types:<br>LaunchedEffect(state) {<br>    state.editOperations.collect { op -&gt; /* one change per emission */ }<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">Colors and text style come from <a href="com.darkrockstudios.texteditor/-text-editor-style/index.html">TextEditorStyle</a>. Use <a href="com.darkrockstudios.texteditor/remember-text-editor-style.html">rememberTextEditorStyle</a> to derive sensible defaults from your <code class="lang-kotlin">MaterialTheme</code>:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">TextEditor(<br>    state = state,<br>    style = rememberTextEditorStyle(<br>        placeholderText = "Start typing…",<br>    ),<br>)</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">For an editor with no surface/border chrome, a custom context menu, or per-line decoration, drop down to <a href="com.darkrockstudios.texteditor/-basic-text-editor.html">BasicTextEditor</a>. For a read-only rendering of the same content, use <a href="com.darkrockstudios.texteditor/-rich-text-view.html">RichTextView</a>.</p><h2 class="">Markdown</h2><p class="paragraph">Wrap a state with <a href="com.darkrockstudios.texteditor.markdown/with-markdown.html">withMarkdown</a> to import and export GitHub-flavored Markdown and toggle block styles (lists, blockquotes, code fences):</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val state = rememberTextEditorState()<br>val markdown = remember(state) { state.withMarkdown() }<br><br>// Import handles both inline (**bold**, *italic*, `code`) and block elements<br>// (headings, lists, blockquotes, code fences, horizontal rules):<br>LaunchedEffect(markdown) {<br>    markdown.importMarkdown(<br>        """<br>        # Title<br><br>        Some **bold** and *italic* text.<br><br>        - one<br>        - two<br>        """.trimIndent()<br>    )<br>}<br><br>TextEditor(state = state)<br><br>// Export the current document back to a Markdown string:<br>val source: String = markdown.exportAsMarkdown()</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">To render only inline Markdown into an <code class="lang-kotlin">AnnotatedString</code> (no block handling), use <a href="com.darkrockstudios.texteditor.markdown/to-annotated-string-from-markdown.html">String.toAnnotatedStringFromMarkdown</a> — but prefer <code class="lang-kotlin">importMarkdown</code> whenever the source contains block elements.</p></div><div class="content sourceset-dependent-content" data-togglable=":ComposeTextEditor/iosMain"><p class="paragraph">A Kotlin Multiplatform rich text editor for Compose — a from-scratch alternative to <code class="lang-kotlin">BasicTextField</code> that supports rich spans, block decorations (lists, blockquotes, code fences, images), efficient long-form rendering, and a per-edit change stream.</p><blockquote class="quotation"><p class="paragraph">**Try it live: ** <a href="https://wavesonics.github.io/ComposeTextEditorLibrary/">interactive demo running on Wasm »</a></p></blockquote><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">implementation("com.darkrockstudios:composetexteditor:2.0.0")</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">The find/replace and spell-check features live in separate add-on modules; see the <strong>Find </strong>&amp;<strong> Replace</strong> and <strong>Spell Check</strong> modules.</p><h2 class="">Getting started</h2><p class="paragraph">Hoist a <a href="../ComposeTextEditor/com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a> with <a href="../ComposeTextEditor/com.darkrockstudios.texteditor.state/index.html">rememberTextEditorState</a> and hand it to <a href="../ComposeTextEditor/com.darkrockstudios.texteditor/index.html">TextEditor</a>:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">@Composable<br>fun Notepad() {<br>    val state = rememberTextEditorState()<br><br>    TextEditor(<br>        state = state,<br>        modifier = Modifier.fillMaxSize(),<br>    )<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">Seed the editor with content, then read it back or react to edits through the state:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val state = rememberTextEditorState(AnnotatedString("Hello, world!"))<br><br>// Read the whole document at any time:<br>val text: AnnotatedString = state.getAllText()<br><br>// Or react to individual edits as the user types:<br>LaunchedEffect(state) {<br>    state.editOperations.collect { op -&gt; /* one change per emission */ }<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">Colors and text style come from <a href="../ComposeTextEditor/com.darkrockstudios.texteditor/-text-editor-style/index.html">TextEditorStyle</a>. Use <a href="../ComposeTextEditor/com.darkrockstudios.texteditor/index.html">rememberTextEditorStyle</a> to derive sensible defaults from your <code class="lang-kotlin">MaterialTheme</code>:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">TextEditor(<br>    state = state,<br>    style = rememberTextEditorStyle(<br>        placeholderText = "Start typing…",<br>    ),<br>)</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">For an editor with no surface/border chrome, a custom context menu, or per-line decoration, drop down to <a href="../ComposeTextEditor/com.darkrockstudios.texteditor/index.html">BasicTextEditor</a>. For a read-only rendering of the same content, use <a href="../ComposeTextEditor/com.darkrockstudios.texteditor/index.html">RichTextView</a>.</p><h2 class="">Markdown</h2><p class="paragraph">Wrap a state with <a href="../ComposeTextEditor/com.darkrockstudios.texteditor.markdown/index.html">withMarkdown</a> to import and export GitHub-flavored Markdown and toggle block styles (lists, blockquotes, code fences):</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val state = rememberTextEditorState()<br>val markdown = remember(state) { state.withMarkdown() }<br><br>// Import handles both inline (**bold**, *italic*, `code`) and block elements<br>// (headings, lists, blockquotes, code fences, horizontal rules):<br>LaunchedEffect(markdown) {<br>    markdown.importMarkdown(<br>        """<br>        # Title<br><br>        Some **bold** and *italic* text.<br><br>        - one<br>        - two<br>        """.trimIndent()<br>    )<br>}<br><br>TextEditor(state = state)<br><br>// Export the current document back to a Markdown string:<br>val source: String = markdown.exportAsMarkdown()</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">To render only inline Markdown into an <code class="lang-kotlin">AnnotatedString</code> (no block handling), use <a href="../ComposeTextEditor/com.darkrockstudios.texteditor.markdown/index.html">String.toAnnotatedStringFromMarkdown</a> — but prefer <code class="lang-kotlin">importMarkdown</code> whenever the source contains block elements.</p></div><div class="content sourceset-dependent-content" data-togglable=":ComposeTextEditor/wasmJsMain"><p class="paragraph">A Kotlin Multiplatform rich text editor for Compose — a from-scratch alternative to <code class="lang-kotlin">BasicTextField</code> that supports rich spans, block decorations (lists, blockquotes, code fences, images), efficient long-form rendering, and a per-edit change stream.</p><blockquote class="quotation"><p class="paragraph">**Try it live: ** <a href="https://wavesonics.github.io/ComposeTextEditorLibrary/">interactive demo running on Wasm »</a></p></blockquote><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">implementation("com.darkrockstudios:composetexteditor:2.0.0")</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">The find/replace and spell-check features live in separate add-on modules; see the <strong>Find </strong>&amp;<strong> Replace</strong> and <strong>Spell Check</strong> modules.</p><h2 class="">Getting started</h2><p class="paragraph">Hoist a <a href="../ComposeTextEditor/com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a> with <a href="../ComposeTextEditor/com.darkrockstudios.texteditor.state/index.html">rememberTextEditorState</a> and hand it to <a href="../ComposeTextEditor/com.darkrockstudios.texteditor/index.html">TextEditor</a>:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">@Composable<br>fun Notepad() {<br>    val state = rememberTextEditorState()<br><br>    TextEditor(<br>        state = state,<br>        modifier = Modifier.fillMaxSize(),<br>    )<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">Seed the editor with content, then read it back or react to edits through the state:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val state = rememberTextEditorState(AnnotatedString("Hello, world!"))<br><br>// Read the whole document at any time:<br>val text: AnnotatedString = state.getAllText()<br><br>// Or react to individual edits as the user types:<br>LaunchedEffect(state) {<br>    state.editOperations.collect { op -&gt; /* one change per emission */ }<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">Colors and text style come from <a href="../ComposeTextEditor/com.darkrockstudios.texteditor/-text-editor-style/index.html">TextEditorStyle</a>. Use <a href="../ComposeTextEditor/com.darkrockstudios.texteditor/index.html">rememberTextEditorStyle</a> to derive sensible defaults from your <code class="lang-kotlin">MaterialTheme</code>:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">TextEditor(<br>    state = state,<br>    style = rememberTextEditorStyle(<br>        placeholderText = "Start typing…",<br>    ),<br>)</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">For an editor with no surface/border chrome, a custom context menu, or per-line decoration, drop down to <a href="../ComposeTextEditor/com.darkrockstudios.texteditor/index.html">BasicTextEditor</a>. For a read-only rendering of the same content, use <a href="../ComposeTextEditor/com.darkrockstudios.texteditor/index.html">RichTextView</a>.</p><h2 class="">Markdown</h2><p class="paragraph">Wrap a state with <a href="../ComposeTextEditor/com.darkrockstudios.texteditor.markdown/index.html">withMarkdown</a> to import and export GitHub-flavored Markdown and toggle block styles (lists, blockquotes, code fences):</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val state = rememberTextEditorState()<br>val markdown = remember(state) { state.withMarkdown() }<br><br>// Import handles both inline (**bold**, *italic*, `code`) and block elements<br>// (headings, lists, blockquotes, code fences, horizontal rules):<br>LaunchedEffect(markdown) {<br>    markdown.importMarkdown(<br>        """<br>        # Title<br><br>        Some **bold** and *italic* text.<br><br>        - one<br>        - two<br>        """.trimIndent()<br>    )<br>}<br><br>TextEditor(state = state)<br><br>// Export the current document back to a Markdown string:<br>val source: String = markdown.exportAsMarkdown()</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">To render only inline Markdown into an <code class="lang-kotlin">AnnotatedString</code> (no block handling), use <a href="../ComposeTextEditor/com.darkrockstudios.texteditor.markdown/index.html">String.toAnnotatedStringFromMarkdown</a> — but prefer <code class="lang-kotlin">importMarkdown</code> whenever the source contains block elements.</p></div>    </div>
+  </div>
+  <h2 class="">Packages</h2>
+  <div class="table"><a data-name="80764117%2FPackages%2F-556598459" anchor-label="com.darkrockstudios.texteditor" id="80764117%2FPackages%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.darkrockstudios.texteditor/index.html">com.darkrockstudios.texteditor</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="80764117%2FPackages%2F-556598459"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag common-like">common</div>
+            </div>
+          </div>
+        </div>
+        <div><span class="brief-comment"><a data-name="80764117%2FPackages%2F-556598459" anchor-label="com.darkrockstudios.texteditor" id="80764117%2FPackages%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+            <p class="paragraph">The editor composables (<a href="com.darkrockstudios.texteditor/-text-editor.html">TextEditor</a>, <a href="com.darkrockstudios.texteditor/-basic-text-editor.html">BasicTextEditor</a>, <a href="com.darkrockstudios.texteditor/-rich-text-view.html">RichTextView</a>), styling (<a href="com.darkrockstudios.texteditor/-text-editor-style/index.html">TextEditorStyle</a>), and the core coordinate types (<a href="com.darkrockstudios.texteditor/-char-line-offset/index.html">CharLineOffset</a>, <a href="com.darkrockstudios.texteditor/-text-editor-range/index.html">TextEditorRange</a>) used throughout the API.</p>
+          </span></div>
+      </div>
+    </div>
+<a data-name="-60426288%2FPackages%2F-556598459" anchor-label="com.darkrockstudios.texteditor.annotatedstring" id="-60426288%2FPackages%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.darkrockstudios.texteditor.annotatedstring/index.html">com.darkrockstudios.texteditor.annotatedstring</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-60426288%2FPackages%2F-556598459"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag common-like">common</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="343660605%2FPackages%2F-1510173098" anchor-label="com.darkrockstudios.texteditor.clipboard" id="343660605%2FPackages%2F-1510173098" data-filterable-set=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain" data-filterable-set=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.darkrockstudios.texteditor.clipboard/index.html">com.darkrockstudios.texteditor.clipboard</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="343660605%2FPackages%2F-1510173098"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">android</div>
+              <div class="platform-tag common-like">common</div>
+              <div class="platform-tag jvm-like">desktop</div>
+              <div class="platform-tag native-like">ios</div>
+              <div class="platform-tag wasm-like">wasmJs</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-865037579%2FPackages%2F-1510173098" anchor-label="com.darkrockstudios.texteditor.contextmenu" id="-865037579%2FPackages%2F-1510173098" data-filterable-set=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain" data-filterable-set=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.darkrockstudios.texteditor.contextmenu/index.html">com.darkrockstudios.texteditor.contextmenu</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-865037579%2FPackages%2F-1510173098"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">android</div>
+              <div class="platform-tag common-like">common</div>
+              <div class="platform-tag jvm-like">desktop</div>
+              <div class="platform-tag native-like">ios</div>
+              <div class="platform-tag wasm-like">wasmJs</div>
+            </div>
+          </div>
+        </div>
+        <div><span class="brief-comment"><a data-name="-865037579%2FPackages%2F-1510173098" anchor-label="com.darkrockstudios.texteditor.contextmenu" id="-865037579%2FPackages%2F-1510173098" data-filterable-set=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain"></a>
+            <p class="paragraph">The cut/copy/paste context menu — its state, actions, and localizable strings. Pass a <a href="com.darkrockstudios.texteditor.contextmenu/-text-editor-context-menu-state/index.html">TextEditorContextMenuState</a> to <a href="com.darkrockstudios.texteditor/-basic-text-editor.html">BasicTextEditor</a> to add your own items (for example, spell-check suggestions).</p>
+          </span></div>
+      </div>
+    </div>
+<a data-name="573622675%2FPackages%2F-556598459" anchor-label="com.darkrockstudios.texteditor.cursor" id="573622675%2FPackages%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.darkrockstudios.texteditor.cursor/index.html">com.darkrockstudios.texteditor.cursor</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="573622675%2FPackages%2F-556598459"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag common-like">common</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-791960591%2FPackages%2F-1510173098" anchor-label="com.darkrockstudios.texteditor.input" id="-791960591%2FPackages%2F-1510173098" data-filterable-set=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain" data-filterable-set=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.darkrockstudios.texteditor.input/index.html">com.darkrockstudios.texteditor.input</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-791960591%2FPackages%2F-1510173098"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">android</div>
+              <div class="platform-tag common-like">common</div>
+              <div class="platform-tag jvm-like">desktop</div>
+              <div class="platform-tag native-like">ios</div>
+              <div class="platform-tag wasm-like">wasmJs</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1084795692%2FPackages%2F-556598459" anchor-label="com.darkrockstudios.texteditor.markdown" id="1084795692%2FPackages%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.darkrockstudios.texteditor.markdown/index.html">com.darkrockstudios.texteditor.markdown</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1084795692%2FPackages%2F-556598459"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag common-like">common</div>
+            </div>
+          </div>
+        </div>
+        <div><span class="brief-comment"><a data-name="1084795692%2FPackages%2F-556598459" anchor-label="com.darkrockstudios.texteditor.markdown" id="1084795692%2FPackages%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+            <p class="paragraph">Markdown import/export and configuration: <a href="com.darkrockstudios.texteditor.markdown/with-markdown.html">withMarkdown</a>, <a href="com.darkrockstudios.texteditor.markdown/-markdown-configuration/index.html">MarkdownConfiguration</a>, and the <code class="lang-kotlin">AnnotatedString</code> ⇄ Markdown converters.</p>
+          </span></div>
+      </div>
+    </div>
+<a data-name="167532604%2FPackages%2F-556598459" anchor-label="com.darkrockstudios.texteditor.richstyle" id="167532604%2FPackages%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.darkrockstudios.texteditor.richstyle/index.html">com.darkrockstudios.texteditor.richstyle</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="167532604%2FPackages%2F-556598459"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag common-like">common</div>
+            </div>
+          </div>
+        </div>
+        <div><span class="brief-comment"><a data-name="167532604%2FPackages%2F-556598459" anchor-label="com.darkrockstudios.texteditor.richstyle" id="167532604%2FPackages%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+            <p class="paragraph">Rich span styles: the <a href="com.darkrockstudios.texteditor.richstyle/-rich-span-style/index.html">RichSpanStyle</a> contract and the built-in decorations (bullet/ordered lists, blockquotes, code fences, horizontal rules, images, and highlights). Implement <code class="lang-kotlin">RichSpanStyle</code> to draw your own.</p>
+          </span></div>
+      </div>
+    </div>
+<a data-name="1564372173%2FPackages%2F-1510173098" anchor-label="com.darkrockstudios.texteditor.scrollbar" id="1564372173%2FPackages%2F-1510173098" data-filterable-set=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain" data-filterable-set=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.darkrockstudios.texteditor.scrollbar/index.html">com.darkrockstudios.texteditor.scrollbar</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1564372173%2FPackages%2F-1510173098"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">android</div>
+              <div class="platform-tag common-like">common</div>
+              <div class="platform-tag jvm-like">desktop</div>
+              <div class="platform-tag native-like">ios</div>
+              <div class="platform-tag wasm-like">wasmJs</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-307227144%2FPackages%2F-1510173098" anchor-label="com.darkrockstudios.texteditor.state" id="-307227144%2FPackages%2F-1510173098" data-filterable-set=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain" data-filterable-set=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.darkrockstudios.texteditor.state/index.html">com.darkrockstudios.texteditor.state</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-307227144%2FPackages%2F-1510173098"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">android</div>
+              <div class="platform-tag common-like">common</div>
+              <div class="platform-tag jvm-like">desktop</div>
+              <div class="platform-tag native-like">ios</div>
+              <div class="platform-tag wasm-like">wasmJs</div>
+            </div>
+          </div>
+        </div>
+        <div><span class="brief-comment"><a data-name="-307227144%2FPackages%2F-1510173098" anchor-label="com.darkrockstudios.texteditor.state" id="-307227144%2FPackages%2F-1510173098" data-filterable-set=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain"></a>
+            <p class="paragraph"><a href="com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a> — the single source of truth for a document (text, cursor, selection, rich spans, scroll, undo history) — its <a href="com.darkrockstudios.texteditor.state/remember-text-editor-state.html">rememberTextEditorState</a> factory, and the extension functions for editing and querying it.</p>
+          </span></div>
+      </div>
+    </div>
+<a data-name="-35161576%2FPackages%2F-556598459" anchor-label="com.darkrockstudios.texteditor.utils" id="-35161576%2FPackages%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.darkrockstudios.texteditor.utils/index.html">com.darkrockstudios.texteditor.utils</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-35161576%2FPackages%2F-556598459"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag common-like">common</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

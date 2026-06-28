@@ -1,0 +1,781 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>com.darkrockstudios.texteditor.state</title>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../index.html" tabindex="1">
+                    Compose Text Editor
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":ComposeTextEditor/androidMain">android</button>
+                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true" data-filter=":ComposeTextEditor/commonMain">common</button>
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":ComposeTextEditor/desktopMain">desktop</button>
+                <button class="platform-tag platform-selector native-like" data-active="" aria-pressed="true" data-filter=":ComposeTextEditor/iosMain">ios</button>
+                <button class="platform-tag platform-selector wasm-like" data-active="" aria-pressed="true" data-filter=":ComposeTextEditor/wasmJsMain">wasmJs</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ComposeTextEditor/androidMain" data-filter=":ComposeTextEditor/androidMain">
+                                <span class="checkbox--icon"></span>
+                                android
+                            </label>
+                        </li>
+                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ComposeTextEditor/commonMain" data-filter=":ComposeTextEditor/commonMain">
+                                <span class="checkbox--icon"></span>
+                                common
+                            </label>
+                        </li>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ComposeTextEditor/desktopMain" data-filter=":ComposeTextEditor/desktopMain">
+                                <span class="checkbox--icon"></span>
+                                desktop
+                            </label>
+                        </li>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ComposeTextEditor/iosMain" data-filter=":ComposeTextEditor/iosMain">
+                                <span class="checkbox--icon"></span>
+                                ios
+                            </label>
+                        </li>
+                        <li role="option" class="dropdown--option platform-selector-option wasm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ComposeTextEditor/wasmJsMain" data-filter=":ComposeTextEditor/wasmJsMain">
+                                <span class="checkbox--icon"></span>
+                                wasmJs
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    Compose Text Editor
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="package" id="content" pageids="Editor::com.darkrockstudios.texteditor.state////PointingToDeclaration//-1510173098">
+  <div class="breadcrumbs"><a href="../index.html">Editor</a><span class="delimiter">/</span><span class="current">com.darkrockstudios.texteditor.state</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+    <div class="platform-hinted UnderCoverText with-platform-tabs" data-platform-hinted="data-platform-hinted">
+      <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain" data-active="" data-toggle=":ComposeTextEditor/androidMain">android</button><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain" data-toggle=":ComposeTextEditor/commonMain">common</button><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/desktopMain" data-filterable-set=":ComposeTextEditor/desktopMain" data-toggle=":ComposeTextEditor/desktopMain">desktop</button><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/iosMain" data-filterable-set=":ComposeTextEditor/iosMain" data-toggle=":ComposeTextEditor/iosMain">ios</button><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/wasmJsMain" data-filterable-set=":ComposeTextEditor/wasmJsMain" data-toggle=":ComposeTextEditor/wasmJsMain">wasmJs</button></div>
+<div class="content sourceset-dependent-content" data-togglable=":ComposeTextEditor/androidMain"><p class="paragraph"><a href="-text-editor-state/index.html">TextEditorState</a> — the single source of truth for a document (text, cursor, selection, rich spans, scroll, undo history) — its <a href="remember-text-editor-state.html">rememberTextEditorState</a> factory, and the extension functions for editing and querying it.</p></div><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><p class="paragraph"><a href="-text-editor-state/index.html">TextEditorState</a> — the single source of truth for a document (text, cursor, selection, rich spans, scroll, undo history) — its <a href="remember-text-editor-state.html">rememberTextEditorState</a> factory, and the extension functions for editing and querying it.</p></div><div class="content sourceset-dependent-content" data-togglable=":ComposeTextEditor/desktopMain"><p class="paragraph"><a href="-text-editor-state/index.html">TextEditorState</a> — the single source of truth for a document (text, cursor, selection, rich spans, scroll, undo history) — its <a href="remember-text-editor-state.html">rememberTextEditorState</a> factory, and the extension functions for editing and querying it.</p></div><div class="content sourceset-dependent-content" data-togglable=":ComposeTextEditor/iosMain"><p class="paragraph"><a href="../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a> — the single source of truth for a document (text, cursor, selection, rich spans, scroll, undo history) — its <a href="../../ComposeTextEditor/com.darkrockstudios.texteditor.state/index.html">rememberTextEditorState</a> factory, and the extension functions for editing and querying it.</p></div><div class="content sourceset-dependent-content" data-togglable=":ComposeTextEditor/wasmJsMain"><p class="paragraph"><a href="../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a> — the single source of truth for a document (text, cursor, selection, rich spans, scroll, undo history) — its <a href="../../ComposeTextEditor/com.darkrockstudios.texteditor.state/index.html">rememberTextEditorState</a> factory, and the extension functions for editing and querying it.</p></div>    </div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="-54147263%2FClasslikes%2F-556598459" anchor-label="CopiedRichSpans" id="-54147263%2FClasslikes%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-copied-rich-spans/index.html"><span>Copied</span><wbr><span>Rich</span><wbr><span><span>Spans</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-54147263%2FClasslikes%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-copied-rich-spans/index.html">CopiedRichSpans</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>text<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>spans<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="-preserved-rich-span/index.html">PreservedRichSpan</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1860524280%2FClasslikes%2F-556598459" anchor-label="CursorData" id="1860524280%2FClasslikes%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-cursor-data/index.html"><span>Cursor</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1860524280%2FClasslikes%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-cursor-data/index.html">CursorData</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>position<span class="token operator">: </span><a href="../com.darkrockstudios.texteditor/-char-line-offset/index.html">CharLineOffset</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>styles<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/SpanStyle.html">SpanStyle</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>selection<span class="token operator">: </span><a href="../com.darkrockstudios.texteditor/-text-editor-range/index.html">TextEditorRange</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A snapshot of the cursor for handlers that react to caret movement.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1044210906%2FClasslikes%2F-556598459" anchor-label="HistoryEntry" id="1044210906%2FClasslikes%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-history-entry/index.html"><span>History</span><wbr><span><span>Entry</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1044210906%2FClasslikes%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-history-entry/index.html">HistoryEntry</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>operation<span class="token operator">: </span><a href="-text-edit-operation/index.html">TextEditOperation</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>metadata<span class="token operator">: </span><a href="-operation-metadata/index.html">OperationMetadata</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-15654463%2FClasslikes%2F-556598459" anchor-label="LineBlockChange" id="-15654463%2FClasslikes%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-line-block-change/index.html"><span>Line</span><wbr><span>Block</span><wbr><span><span>Change</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-15654463%2FClasslikes%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-line-block-change/index.html">LineBlockChange</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>lineIndex<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>contentBefore<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/AnnotatedString.html">AnnotatedString</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>contentAfter<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/AnnotatedString.html">AnnotatedString</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>blockSpansBefore<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../com.darkrockstudios.texteditor.richstyle/-rich-span-style/index.html">RichSpanStyle</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>blockSpansAfter<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../com.darkrockstudios.texteditor.richstyle/-rich-span-style/index.html">RichSpanStyle</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">One line's before/after snapshot for an atomic <a href="-text-edit-operation/-line-block/index.html">TextEditOperation.LineBlock</a>. <a href="../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-line-block-change/--root--.html">blockSpansBefore</a>/<a href="../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-line-block-change/--root--.html">blockSpansAfter</a> list the line-anchored block span styles attached to the line in each state — restoring them rebuilds the gutter markers exactly. The paragraph/text indent itself lives in the captured content.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-576195468%2FClasslikes%2F-556598459" anchor-label="OperationMetadata" id="-576195468%2FClasslikes%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-operation-metadata/index.html"><span>Operation</span><wbr><span><span>Metadata</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-576195468%2FClasslikes%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-operation-metadata/index.html">OperationMetadata</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>deletedText<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/AnnotatedString.html">AnnotatedString</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>deletedSpans<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../com.darkrockstudios.texteditor.richstyle/-rich-span/index.html">RichSpan</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyList()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>preservedRichSpans<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="-preserved-rich-span/index.html">PreservedRichSpan</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyList()</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="717821623%2FClasslikes%2F-1510173098" anchor-label="PlatformTextEditorExtensions" id="717821623%2FClasslikes%2F-1510173098" data-filterable-set=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain" data-filterable-set=":ComposeTextEditor/commonMain,:ComposeTextEditor/androidMain,:ComposeTextEditor/desktopMain,:ComposeTextEditor/iosMain,:ComposeTextEditor/wasmJsMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-platform-text-editor-extensions/index.html"><span>Platform</span><wbr><span>Text</span><wbr><span>Editor</span><wbr><span><span>Extensions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="717821623%2FClasslikes%2F-1510173098"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/androidMain" data-filterable-set=":ComposeTextEditor/androidMain" data-active="" data-toggle=":ComposeTextEditor/androidMain">android</button><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain" data-toggle=":ComposeTextEditor/commonMain">common</button><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/desktopMain" data-filterable-set=":ComposeTextEditor/desktopMain" data-toggle=":ComposeTextEditor/desktopMain">desktop</button><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/iosMain" data-filterable-set=":ComposeTextEditor/iosMain" data-toggle=":ComposeTextEditor/iosMain">ios</button><button class="platform-bookmark" data-filterable-current=":ComposeTextEditor/wasmJsMain" data-filterable-set=":ComposeTextEditor/wasmJsMain" data-toggle=":ComposeTextEditor/wasmJsMain">wasmJs</button></div>
+<div class="content sourceset-dependent-content" data-togglable=":ComposeTextEditor/androidMain"><div class="symbol monospace"><span class="token keyword">actual </span><span class="token keyword">class </span><a href="-platform-text-editor-extensions/index.html">PlatformTextEditorExtensions</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="-text-editor-state/index.html">TextEditorState</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Android-specific extensions for TextEditorState. Contains IME-related functionality for cursor anchor monitoring.</p></div></div><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">class </span><a href="-platform-text-editor-extensions/index.html">PlatformTextEditorExtensions</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="-text-editor-state/index.html">TextEditorState</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Platform-specific extensions for TextEditorState. Each platform actual adds its own platform-specific members.</p></div></div><div class="content sourceset-dependent-content" data-togglable=":ComposeTextEditor/desktopMain"><div class="symbol monospace"><span class="token keyword">actual </span><span class="token keyword">class </span><a href="-platform-text-editor-extensions/index.html">PlatformTextEditorExtensions</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="-text-editor-state/index.html">TextEditorState</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Desktop-specific extensions for TextEditorState. Empty implementation - desktop doesn't have IME-specific requirements.</p></div></div><div class="content sourceset-dependent-content" data-togglable=":ComposeTextEditor/iosMain"><div class="symbol monospace"><span class="token keyword">actual </span><span class="token keyword">class </span><a href="-platform-text-editor-extensions/index.html">PlatformTextEditorExtensions</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">iOS-specific extensions for TextEditorState. Empty implementation - iOS doesn't have Android-style IME requirements. Compose Multiplatform handles iOS keyboard integration internally.</p></div></div><div class="content sourceset-dependent-content" data-togglable=":ComposeTextEditor/wasmJsMain"><div class="symbol monospace"><span class="token keyword">actual </span><span class="token keyword">class </span><a href="-platform-text-editor-extensions/index.html">PlatformTextEditorExtensions</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">WASM-specific extensions for TextEditorState. Empty implementation - WASM doesn't have IME-specific requirements.</p></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="284902700%2FClasslikes%2F-556598459" anchor-label="PreservedRichSpan" id="284902700%2FClasslikes%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-preserved-rich-span/index.html"><span>Preserved</span><wbr><span>Rich</span><wbr><span><span>Span</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="284902700%2FClasslikes%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-preserved-rich-span/index.html">PreservedRichSpan</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>relativeStart<span class="token operator">: </span><a href="-relative-position/index.html">RelativePosition</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>relativeEnd<span class="token operator">: </span><a href="-relative-position/index.html">RelativePosition</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>style<span class="token operator">: </span><a href="../com.darkrockstudios.texteditor.richstyle/-rich-span-style/index.html">RichSpanStyle</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1781650077%2FClasslikes%2F-556598459" anchor-label="RelativePosition" id="-1781650077%2FClasslikes%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-relative-position/index.html"><span>Relative</span><wbr><span><span>Position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1781650077%2FClasslikes%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-relative-position/index.html">RelativePosition</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>lineDiff<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>char<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="195658499%2FClasslikes%2F-556598459" anchor-label="RichSpanManager" id="195658499%2FClasslikes%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-rich-span-manager/index.html"><span>Rich</span><wbr><span>Span</span><wbr><span><span>Manager</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="195658499%2FClasslikes%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-rich-span-manager/index.html">RichSpanManager</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="-text-editor-state/index.html">TextEditorState</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1531802202%2FClasslikes%2F-556598459" anchor-label="SentenceSegment" id="1531802202%2FClasslikes%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-sentence-segment/index.html"><span>Sentence</span><wbr><span><span>Segment</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1531802202%2FClasslikes%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-sentence-segment/index.html">SentenceSegment</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>text<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>range<span class="token operator">: </span><a href="../com.darkrockstudios.texteditor/-text-editor-range/index.html">TextEditorRange</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Represents a sentence within the editor text.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1861114930%2FClasslikes%2F-556598459" anchor-label="SpanClickType" id="1861114930%2FClasslikes%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-span-click-type/index.html"><span>Span</span><wbr><span>Click</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1861114930%2FClasslikes%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-span-click-type/index.html">SpanClickType</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-span-click-type/index.html">SpanClickType</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Reports how a rich span was clicked, so a rich-span click handler can tell a touch tap from a left-click and from a right-click (context menu) request.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1905854599%2FClasslikes%2F-556598459" anchor-label="SpanManager" id="1905854599%2FClasslikes%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-span-manager/index.html"><span>Span</span><wbr><span><span>Manager</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1905854599%2FClasslikes%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-span-manager/index.html">SpanManager</a></div><div class="brief "><p class="paragraph">Manages text spans efficiently by handling merging, shrinking, and expansion of spans while maintaining the minimal necessary number of spans.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1154584947%2FClasslikes%2F-556598459" anchor-label="TextEditHistory" id="-1154584947%2FClasslikes%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-text-edit-history/index.html"><span>Text</span><wbr><span>Edit</span><wbr><span><span>History</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1154584947%2FClasslikes%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-text-edit-history/index.html">TextEditHistory</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">maxHistorySize<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">100</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="737460628%2FClasslikes%2F-556598459" anchor-label="TextEditManager" id="737460628%2FClasslikes%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-text-edit-manager/index.html"><span>Text</span><wbr><span>Edit</span><wbr><span><span>Manager</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="737460628%2FClasslikes%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-text-edit-manager/index.html">TextEditManager</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="-text-editor-state/index.html">TextEditorState</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-595647206%2FClasslikes%2F-556598459" anchor-label="TextEditOperation" id="-595647206%2FClasslikes%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-text-edit-operation/index.html"><span>Text</span><wbr><span>Edit</span><wbr><span><span>Operation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-595647206%2FClasslikes%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="-text-edit-operation/index.html">TextEditOperation</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2050079095%2FClasslikes%2F-556598459" anchor-label="TextEditorCursorState" id="-2050079095%2FClasslikes%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-text-editor-cursor-state/index.html"><span>Text</span><wbr><span>Editor</span><wbr><span>Cursor</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2050079095%2FClasslikes%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-text-editor-cursor-state/index.html">TextEditorCursorState</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">editorState<span class="token operator">: </span><a href="-text-editor-state/index.html">TextEditorState</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="351460388%2FClasslikes%2F-556598459" anchor-label="TextEditorScrollManager" id="351460388%2FClasslikes%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-text-editor-scroll-manager/index.html"><span>Text</span><wbr><span>Editor</span><wbr><span>Scroll</span><wbr><span><span>Manager</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="351460388%2FClasslikes%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-text-editor-scroll-manager/index.html">TextEditorScrollManager</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span><span class="token punctuation">, </span></span><span class="parameter ">getLines<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/AnnotatedString.html">AnnotatedString</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">getLineOffsets<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../com.darkrockstudios.texteditor/-line-wrap/index.html">LineWrap</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">getViewportSize<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/geometry/Size.html">Size</a><span class="token punctuation">, </span></span><span class="parameter ">getCursorPosition<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../com.darkrockstudios.texteditor/-char-line-offset/index.html">CharLineOffset</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>scrollState<span class="token operator">: </span><a href="-text-editor-scroll-state/index.html">TextEditorScrollState</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2128613440%2FClasslikes%2F-556598459" anchor-label="TextEditorScrollState" id="-2128613440%2FClasslikes%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-text-editor-scroll-state/index.html"><span>Text</span><wbr><span>Editor</span><wbr><span>Scroll</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2128613440%2FClasslikes%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-text-editor-scroll-state/index.html">TextEditorScrollState</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">initial<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span></span></span><span class="token punctuation">)</span> : <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/ScrollableState.html">ScrollableState</a></div><div class="brief "><p class="paragraph">Vertical scroll position for a text editor, as a Compose <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/ScrollableState.html">ScrollableState</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2091772381%2FClasslikes%2F-556598459" anchor-label="TextEditorSelectionManager" id="2091772381%2FClasslikes%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-text-editor-selection-manager/index.html"><span>Text</span><wbr><span>Editor</span><wbr><span>Selection</span><wbr><span><span>Manager</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2091772381%2FClasslikes%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-text-editor-selection-manager/index.html">TextEditorSelectionManager</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="-text-editor-state/index.html">TextEditorState</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1130036179%2FClasslikes%2F-556598459" anchor-label="TextEditorState" id="1130036179%2FClasslikes%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-text-editor-state/index.html"><span>Text</span><wbr><span>Editor</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1130036179%2FClasslikes%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>scope<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span><span class="token punctuation">, </span></span><span class="parameter ">measurer<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/TextMeasurer.html">TextMeasurer</a><span class="token punctuation">, </span></span><span class="parameter ">initialText<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/AnnotatedString.html">AnnotatedString</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">The single source of truth for a <a href="../com.darkrockstudios.texteditor/-text-editor.html">com.darkrockstudios.texteditor.TextEditor</a>: the document text, cursor, selection, rich spans, scroll position, and undo history. Create one with <a href="remember-text-editor-state.html">rememberTextEditorState</a> and hoist it so you can drive the editor from outside.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1776243839%2FClasslikes%2F-556598459" anchor-label="WordSegment" id="-1776243839%2FClasslikes%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-word-segment/index.html"><span>Word</span><wbr><span><span>Segment</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1776243839%2FClasslikes%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-word-segment/index.html">WordSegment</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>text<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>range<span class="token operator">: </span><a href="../com.darkrockstudios.texteditor/-text-editor-range/index.html">TextEditorRange</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="1571679859%2FFunctions%2F-556598459" anchor-label="countOverlappingSpans" id="1571679859%2FFunctions%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="count-overlapping-spans.html"><span>count</span><wbr><span>Overlapping</span><wbr><span><span>Spans</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1571679859%2FFunctions%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">.</span><a href="count-overlapping-spans.html"><span class="token function">countOverlappingSpans</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="../com.darkrockstudios.texteditor/-char-line-offset/index.html">CharLineOffset</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="267890988%2FFunctions%2F-556598459" anchor-label="debugRichSpans" id="267890988%2FFunctions%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="debug-rich-spans.html"><span>debug</span><wbr><span>Rich</span><wbr><span><span>Spans</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="267890988%2FFunctions%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">.</span><a href="debug-rich-spans.html"><span class="token function">debugRichSpans</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1830791288%2FFunctions%2F-556598459" anchor-label="debugSpanStyles" id="1830791288%2FFunctions%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="debug-span-styles.html"><span>debug</span><wbr><span>Span</span><wbr><span><span>Styles</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1830791288%2FFunctions%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">.</span><a href="debug-span-styles.html"><span class="token function">debugSpanStyles</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">filterRange<span class="token operator">: </span><a href="../com.darkrockstudios.texteditor/-text-editor-range/index.html">TextEditorRange</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-898624798%2FFunctions%2F-556598459" anchor-label="findSentenceSegmentAt" id="-898624798%2FFunctions%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="find-sentence-segment-at.html"><span>find</span><wbr><span>Sentence</span><wbr><span>Segment</span><wbr><span><span>At</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-898624798%2FFunctions%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">.</span><a href="find-sentence-segment-at.html"><span class="token function">findSentenceSegmentAt</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">position<span class="token operator">: </span><a href="../com.darkrockstudios.texteditor/-char-line-offset/index.html">CharLineOffset</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-sentence-segment/index.html">SentenceSegment</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Find the sentence containing the given position.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="162434395%2FFunctions%2F-556598459" anchor-label="findWordSegmentAt" id="162434395%2FFunctions%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="find-word-segment-at.html"><span>find</span><wbr><span>Word</span><wbr><span>Segment</span><wbr><span><span>At</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="162434395%2FFunctions%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">.</span><a href="find-word-segment-at.html"><span class="token function">findWordSegmentAt</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">position<span class="token operator">: </span><a href="../com.darkrockstudios.texteditor/-char-line-offset/index.html">CharLineOffset</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-word-segment/index.html">WordSegment</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Finds the WordSegment at a given position, if one exists. A WordSegment is considered to exist at a position if the position is within or immediately adjacent to a word.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2025511287%2FFunctions%2F-556598459" anchor-label="getRichSpansAtPosition" id="2025511287%2FFunctions%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-rich-spans-at-position.html"><span>get</span><wbr><span>Rich</span><wbr><span>Spans</span><wbr><span>At</span><wbr><span><span>Position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2025511287%2FFunctions%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">.</span><a href="get-rich-spans-at-position.html"><span class="token function">getRichSpansAtPosition</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">position<span class="token operator">: </span><a href="../com.darkrockstudios.texteditor/-char-line-offset/index.html">CharLineOffset</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><a href="../com.darkrockstudios.texteditor.richstyle/-rich-span/index.html">RichSpan</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns the <a href="../com.darkrockstudios.texteditor.richstyle/-rich-span/index.html">RichSpan</a>s whose range contains <a href="get-rich-spans-at-position.html">position</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1895782441%2FFunctions%2F-556598459" anchor-label="getRichSpansInRange" id="1895782441%2FFunctions%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-rich-spans-in-range.html"><span>get</span><wbr><span>Rich</span><wbr><span>Spans</span><wbr><span>In</span><wbr><span><span>Range</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1895782441%2FFunctions%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">.</span><a href="get-rich-spans-in-range.html"><span class="token function">getRichSpansInRange</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">range<span class="token operator">: </span><a href="../com.darkrockstudios.texteditor/-text-editor-range/index.html">TextEditorRange</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><a href="../com.darkrockstudios.texteditor.richstyle/-rich-span/index.html">RichSpan</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns the <a href="../com.darkrockstudios.texteditor.richstyle/-rich-span/index.html">RichSpan</a>s overlapping <a href="get-rich-spans-in-range.html">range</a>. Returns an empty set if either endpoint's line is out of bounds.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1332492630%2FFunctions%2F-556598459" anchor-label="getSpanStylesAtPosition" id="1332492630%2FFunctions%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-span-styles-at-position.html"><span>get</span><wbr><span>Span</span><wbr><span>Styles</span><wbr><span>At</span><wbr><span><span>Position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1332492630%2FFunctions%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">.</span><a href="get-span-styles-at-position.html"><span class="token function">getSpanStylesAtPosition</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">position<span class="token operator">: </span><a href="../com.darkrockstudios.texteditor/-char-line-offset/index.html">CharLineOffset</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/SpanStyle.html">SpanStyle</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns all unique SpanStyles that are active at the given position.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1376443448%2FFunctions%2F-556598459" anchor-label="getSpanStylesInRange" id="-1376443448%2FFunctions%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-span-styles-in-range.html"><span>get</span><wbr><span>Span</span><wbr><span>Styles</span><wbr><span>In</span><wbr><span><span>Range</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1376443448%2FFunctions%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">.</span><a href="get-span-styles-in-range.html"><span class="token function">getSpanStylesInRange</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">range<span class="token operator">: </span><a href="../com.darkrockstudios.texteditor/-text-editor-range/index.html">TextEditorRange</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/SpanStyle.html">SpanStyle</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns all unique SpanStyles that intersect with the given TextRange. For partially overlapping spans, the entire SpanStyle is included.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1593003759%2FFunctions%2F-556598459" anchor-label="insertTypedCharacter" id="-1593003759%2FFunctions%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="insert-typed-character.html"><span>insert</span><wbr><span>Typed</span><wbr><span><span>Character</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1593003759%2FFunctions%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">.</span><a href="insert-typed-character.html"><span class="token function">insertTypedCharacter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">char<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-char/index.html">Char</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Inserts <a href="insert-typed-character.html">char</a> as if typed: replaces any active selection, then inserts at the cursor and clears the selection.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1308641105%2FFunctions%2F-556598459" anchor-label="insertTypedString" id="1308641105%2FFunctions%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="insert-typed-string.html"><span>insert</span><wbr><span>Typed</span><wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1308641105%2FFunctions%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">.</span><a href="insert-typed-string.html"><span class="token function">insertTypedString</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">string<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/AnnotatedString.html">AnnotatedString</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Inserts an <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/AnnotatedString.html">AnnotatedString</a> as if typed, preserving its styling: replaces any active selection, then inserts at the cursor and clears the selection.</p></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">.</span><a href="insert-typed-string.html"><span class="token function">insertTypedString</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">string<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Inserts <a href="insert-typed-string.html">string</a> as if typed: replaces any active selection, then inserts at the cursor and clears the selection.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-333737346%2FFunctions%2F-556598459" anchor-label="moveToDocumentEnd" id="-333737346%2FFunctions%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="move-to-document-end.html"><span>move</span><wbr><span>To</span><wbr><span>Document</span><wbr><span><span>End</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-333737346%2FFunctions%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">.</span><a href="move-to-document-end.html"><span class="token function">moveToDocumentEnd</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Moves the cursor past the last character of the document.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1566324503%2FFunctions%2F-556598459" anchor-label="moveToDocumentStart" id="1566324503%2FFunctions%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="move-to-document-start.html"><span>move</span><wbr><span>To</span><wbr><span>Document</span><wbr><span><span>Start</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1566324503%2FFunctions%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">.</span><a href="move-to-document-start.html"><span class="token function">moveToDocumentStart</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Moves the cursor to the first character of the document.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2025369725%2FFunctions%2F-556598459" anchor-label="moveToNextWord" id="2025369725%2FFunctions%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="move-to-next-word.html"><span>move</span><wbr><span>To</span><wbr><span>Next</span><wbr><span><span>Word</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2025369725%2FFunctions%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">.</span><a href="move-to-next-word.html"><span class="token function">moveToNextWord</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Moves the cursor to the start of the next word, or to the document end if none remains.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-853755399%2FFunctions%2F-556598459" anchor-label="moveToPreviousWord" id="-853755399%2FFunctions%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="move-to-previous-word.html"><span>move</span><wbr><span>To</span><wbr><span>Previous</span><wbr><span><span>Word</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-853755399%2FFunctions%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">.</span><a href="move-to-previous-word.html"><span class="token function">moveToPreviousWord</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Moves the cursor to the start of the current or previous word, or to the document start if already at the beginning.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-887766245%2FFunctions%2F-556598459" anchor-label="rememberTextEditorState" id="-887766245%2FFunctions%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remember-text-editor-state.html"><span>remember</span><wbr><span>Text</span><wbr><span>Editor</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-887766245%2FFunctions%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="remember-text-editor-state.html"><span class="token function">rememberTextEditorState</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">initialText<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/AnnotatedString.html">AnnotatedString</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-text-editor-state/index.html">TextEditorState</a></div><div class="brief "><p class="paragraph">Creates and remembers a <a href="-text-editor-state/index.html">TextEditorState</a>, wiring it to a coroutine scope and a text measurer that follow the composition. Hoist the returned state and pass it to <a href="../com.darkrockstudios.texteditor/-text-editor.html">com.darkrockstudios.texteditor.TextEditor</a> to read or mutate the content.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="820131843%2FFunctions%2F-556598459" anchor-label="sentenceSegments" id="820131843%2FFunctions%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="sentence-segments.html"><span>sentence</span><wbr><span><span>Segments</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="820131843%2FFunctions%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">.</span><a href="sentence-segments.html"><span class="token function">sentenceSegments</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.sequences/-sequence/index.html">Sequence</a><span class="token operator">&lt;</span><a href="-sentence-segment/index.html">SentenceSegment</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Extension function to segment the entire document into sentences.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1626774805%2FFunctions%2F-556598459" anchor-label="sentenceSegmentsInRange" id="1626774805%2FFunctions%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="sentence-segments-in-range.html"><span>sentence</span><wbr><span>Segments</span><wbr><span>In</span><wbr><span><span>Range</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1626774805%2FFunctions%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">.</span><a href="sentence-segments-in-range.html"><span class="token function">sentenceSegmentsInRange</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">range<span class="token operator">: </span><a href="../com.darkrockstudios.texteditor/-text-editor-range/index.html">TextEditorRange</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="-sentence-segment/index.html">SentenceSegment</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Find all sentences that intersect with the given range.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1038463676%2FFunctions%2F-556598459" anchor-label="wordSegments" id="1038463676%2FFunctions%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="word-segments.html"><span>word</span><wbr><span><span>Segments</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1038463676%2FFunctions%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">.</span><a href="word-segments.html"><span class="token function">wordSegments</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.sequences/-sequence/index.html">Sequence</a><span class="token operator">&lt;</span><a href="-word-segment/index.html">WordSegment</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-402004996%2FFunctions%2F-556598459" anchor-label="wordSegmentsInRange" id="-402004996%2FFunctions%2F-556598459" data-filterable-set=":ComposeTextEditor/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ComposeTextEditor/commonMain" data-filterable-set=":ComposeTextEditor/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="word-segments-in-range.html"><span>word</span><wbr><span>Segments</span><wbr><span>In</span><wbr><span><span>Range</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-402004996%2FFunctions%2F-556598459"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditor/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">.</span><a href="word-segments-in-range.html"><span class="token function">wordSegmentsInRange</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">range<span class="token operator">: </span><a href="../com.darkrockstudios.texteditor/-text-editor-range/index.html">TextEditorRange</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="-word-segment/index.html">WordSegment</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns a list of word segments that fall within or intersect the specified text range. A word segment represents a continuous sequence of word characters along with its position in the text.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

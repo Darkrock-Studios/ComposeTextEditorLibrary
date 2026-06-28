@@ -1,0 +1,389 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>SpellCheckState</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../index.html" tabindex="1">
+                    Compose Text Editor
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true" data-filter=":ComposeTextEditorSpellCheck/commonMain">common</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":ComposeTextEditorSpellCheck/commonMain" data-filter=":ComposeTextEditorSpellCheck/commonMain">
+                                <span class="checkbox--icon"></span>
+                                common
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    Compose Text Editor
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="Spell Check::com.darkrockstudios.texteditor.spellcheck/SpellCheckState///PointingToDeclaration//-479651739">
+  <div class="breadcrumbs"><a href="../../index.html">Spell Check</a><span class="delimiter">/</span><a href="../index.html">com.darkrockstudios.texteditor.spellcheck</a><span class="delimiter">/</span><span class="current">SpellCheckState</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Spell</span><wbr><span>Check</span><wbr><span><span>State</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorSpellCheck/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">SpellCheckState</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>textState<span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">var </span>spellChecker<span class="token operator">: </span><a href="../../com.darkrockstudios.texteditor.spellcheck.api/-editor-spell-checker/index.html">EditorSpellChecker</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">enableSpellChecking<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">var </span>spellCheckMode<span class="token operator">: </span><a href="../-spell-check-mode/index.html">SpellCheckMode</a><span class="token operator"> = </span>SpellCheckMode.Word</span></span><span class="token punctuation">)</span><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/Wavesonics/ComposeTextEditorLibrary/blob/main/ComposeTextEditorSpellCheck/src/commonMain/kotlin/com/darkrockstudios/texteditor/spellcheck/SpellCheckState.kt#L47">source</a>)</span></span></div><p class="paragraph">State holder that coordinates spell checking over a <a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a>.</p><p class="paragraph">Tracks misspelled words and sentence-level <a href="../../com.darkrockstudios.texteditor.spellcheck.api/-correction/index.html">Correction</a>s, manages the spell-check decoration spans rendered in the document, and runs full or partial checks through an <a href="../../com.darkrockstudios.texteditor.spellcheck.api/-editor-spell-checker/index.html">EditorSpellChecker</a>. Span mutations are performed atomically after any asynchronous lookup completes so that a cancelled check never leaves the document with its decorations wiped.</p><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorSpellCheck/commonMain" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>enable</span><wbr><span>Spell</span><wbr><span><span>Checking</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Whether spell checking is active initially; exposed via <a href="spell-checking-enabled.html">spellCheckingEnabled</a>.</p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="1412805769%2FConstructors%2F-479651739" anchor-label="SpellCheckState" id="1412805769%2FConstructors%2F-479651739" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":ComposeTextEditorSpellCheck/commonMain" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-spell-check-state.html"><span>Spell</span><wbr><span>Check</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1412805769%2FConstructors%2F-479651739"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorSpellCheck/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">textState<span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a><span class="token punctuation">, </span></span><span class="parameter ">spellChecker<span class="token operator">: </span><a href="../../com.darkrockstudios.texteditor.spellcheck.api/-editor-spell-checker/index.html">EditorSpellChecker</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">enableSpellChecking<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">spellCheckMode<span class="token operator">: </span><a href="../-spell-check-mode/index.html">SpellCheckMode</a><span class="token operator"> = </span>SpellCheckMode.Word</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="-937244706%2FProperties%2F-479651739" anchor-label="spellChecker" id="-937244706%2FProperties%2F-479651739" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorSpellCheck/commonMain" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="spell-checker.html"><span>spell</span><wbr><span><span>Checker</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-937244706%2FProperties%2F-479651739"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorSpellCheck/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="spell-checker.html">spellChecker</a><span class="token operator">: </span><a href="../../com.darkrockstudios.texteditor.spellcheck.api/-editor-spell-checker/index.html">EditorSpellChecker</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The <a href="../../com.darkrockstudios.texteditor.spellcheck.api/-editor-spell-checker/index.html">EditorSpellChecker</a> used to evaluate words and sentences; checks are no-ops while this is <code class="lang-kotlin">null</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="56270284%2FProperties%2F-479651739" anchor-label="spellCheckingEnabled" id="56270284%2FProperties%2F-479651739" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorSpellCheck/commonMain" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="spell-checking-enabled.html"><span>spell</span><wbr><span>Checking</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="56270284%2FProperties%2F-479651739"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorSpellCheck/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="spell-checking-enabled.html">spellCheckingEnabled</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether spell checking is currently active. Toggle via <a href="set-spell-checking-enabled.html">setSpellCheckingEnabled</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-832432120%2FProperties%2F-479651739" anchor-label="spellCheckMode" id="-832432120%2FProperties%2F-479651739" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorSpellCheck/commonMain" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="spell-check-mode.html"><span>spell</span><wbr><span>Check</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-832432120%2FProperties%2F-479651739"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorSpellCheck/commonMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="spell-check-mode.html">spellCheckMode</a><span class="token operator">: </span><a href="../-spell-check-mode/index.html">SpellCheckMode</a></div><div class="brief "><p class="paragraph">Whether checking operates per-word or per-sentence; see <a href="../-spell-check-mode/index.html">SpellCheckMode</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="409085611%2FProperties%2F-479651739" anchor-label="textState" id="409085611%2FProperties%2F-479651739" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorSpellCheck/commonMain" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="text-state.html"><span>text</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="409085611%2FProperties%2F-479651739"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorSpellCheck/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="text-state.html">textState</a><span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-text-editor-state/index.html">TextEditorState</a></div><div class="brief "><p class="paragraph">The underlying editor state whose content is spell checked.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="1281796000%2FFunctions%2F-479651739" anchor-label="applySentenceCorrection" id="1281796000%2FFunctions%2F-479651739" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorSpellCheck/commonMain" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="apply-sentence-correction.html"><span>apply</span><wbr><span>Sentence</span><wbr><span><span>Correction</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1281796000%2FFunctions%2F-479651739"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorSpellCheck/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="apply-sentence-correction.html"><span class="token function">applySentenceCorrection</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">correction<span class="token operator">: </span><a href="../../com.darkrockstudios.texteditor.spellcheck.api/-correction/index.html">Correction</a><span class="token punctuation">, </span></span><span class="parameter ">selectedSuggestion<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Apply a sentence-level correction.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-366280263%2FFunctions%2F-479651739" anchor-label="checkWordSegment" id="-366280263%2FFunctions%2F-479651739" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorSpellCheck/commonMain" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="check-word-segment.html"><span>check</span><wbr><span>Word</span><wbr><span><span>Segment</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-366280263%2FFunctions%2F-479651739"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorSpellCheck/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="check-word-segment.html"><span class="token function">checkWordSegment</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">segment<span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-word-segment/index.html">WordSegment</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Run spell check on a specific word segment. This will remove any existing spell check spans for the word and add a new one if misspelled.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="276529471%2FFunctions%2F-479651739" anchor-label="correctSpelling" id="276529471%2FFunctions%2F-479651739" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorSpellCheck/commonMain" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="correct-spelling.html"><span>correct</span><wbr><span><span>Spelling</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="276529471%2FFunctions%2F-479651739"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorSpellCheck/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="correct-spelling.html"><span class="token function">correctSpelling</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">segment<span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-word-segment/index.html">WordSegment</a><span class="token punctuation">, </span></span><span class="parameter ">correction<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Replace a misspelled word with the chosen correction.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-10342222%2FFunctions%2F-479651739" anchor-label="getSuggestions" id="-10342222%2FFunctions%2F-479651739" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorSpellCheck/commonMain" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-suggestions.html"><span>get</span><wbr><span><span>Suggestions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-10342222%2FFunctions%2F-479651739"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorSpellCheck/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="get-suggestions.html"><span class="token function">getSuggestions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">word<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../com.darkrockstudios.texteditor.spellcheck.api/-suggestion/index.html">Suggestion</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Gather correction suggestions for a word.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="650762956%2FFunctions%2F-479651739" anchor-label="handleSentenceSpanClick" id="650762956%2FFunctions%2F-479651739" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorSpellCheck/commonMain" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="handle-sentence-span-click.html"><span>handle</span><wbr><span>Sentence</span><wbr><span>Span</span><wbr><span><span>Click</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="650762956%2FFunctions%2F-479651739"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorSpellCheck/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="handle-sentence-span-click.html"><span class="token function">handleSentenceSpanClick</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">span<span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.richstyle/-rich-span/index.html">RichSpan</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.darkrockstudios.texteditor.spellcheck.api/-correction/index.html">Correction</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Handle click for sentence-level corrections only. Use this when you specifically need a Correction.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1057566767%2FFunctions%2F-479651739" anchor-label="handleSpanClick" id="1057566767%2FFunctions%2F-479651739" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorSpellCheck/commonMain" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="handle-span-click.html"><span>handle</span><wbr><span>Span</span><wbr><span><span>Click</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1057566767%2FFunctions%2F-479651739"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorSpellCheck/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="handle-span-click.html"><span class="token function">handleSpanClick</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">span<span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.richstyle/-rich-span/index.html">RichSpan</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Handle click on a spell check span.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1574747589%2FFunctions%2F-479651739" anchor-label="handleWordSpanClick" id="1574747589%2FFunctions%2F-479651739" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorSpellCheck/commonMain" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="handle-word-span-click.html"><span>handle</span><wbr><span>Word</span><wbr><span>Span</span><wbr><span><span>Click</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1574747589%2FFunctions%2F-479651739"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorSpellCheck/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="handle-word-span-click.html"><span class="token function">handleWordSpanClick</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">span<span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.richstyle/-rich-span/index.html">RichSpan</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-word-segment/index.html">WordSegment</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Handle click for word-level misspellings only. Use this when you specifically need a WordSegment.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-914763607%2FFunctions%2F-479651739" anchor-label="invalidateSpellCheckSpans" id="-914763607%2FFunctions%2F-479651739" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorSpellCheck/commonMain" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="invalidate-spell-check-spans.html"><span>invalidate</span><wbr><span>Spell</span><wbr><span>Check</span><wbr><span><span>Spans</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-914763607%2FFunctions%2F-479651739"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorSpellCheck/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="invalidate-spell-check-spans.html"><span class="token function">invalidateSpellCheckSpans</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">operation<span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.state/-text-edit-operation/index.html">TextEditOperation</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Remove spell-check decorations affected by an edit operation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1041732789%2FFunctions%2F-479651739" anchor-label="runFullSpellCheck" id="1041732789%2FFunctions%2F-479651739" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorSpellCheck/commonMain" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="run-full-spell-check.html"><span>run</span><wbr><span>Full</span><wbr><span>Spell</span><wbr><span><span>Check</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1041732789%2FFunctions%2F-479651739"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorSpellCheck/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="run-full-spell-check.html"><span class="token function">runFullSpellCheck</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Run full spell check based on the current mode.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1474306957%2FFunctions%2F-479651739" anchor-label="runPartialSpellCheck" id="1474306957%2FFunctions%2F-479651739" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorSpellCheck/commonMain" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="run-partial-spell-check.html"><span>run</span><wbr><span>Partial</span><wbr><span>Spell</span><wbr><span><span>Check</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1474306957%2FFunctions%2F-479651739"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorSpellCheck/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="run-partial-spell-check.html"><span class="token function">runPartialSpellCheck</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">range<span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor/-text-editor-range/index.html">TextEditorRange</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Run partial spell check based on the current mode.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-743738701%2FFunctions%2F-479651739" anchor-label="setSpellCheckingEnabled" id="-743738701%2FFunctions%2F-479651739" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":ComposeTextEditorSpellCheck/commonMain" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-spell-checking-enabled.html"><span>set</span><wbr><span>Spell</span><wbr><span>Checking</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-743738701%2FFunctions%2F-479651739"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorSpellCheck/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="set-spell-checking-enabled.html"><span class="token function">setSpellCheckingEnabled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Enable or disable spell checking.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1430353721%2FFunctions%2F-479651739" anchor-label="withMarkdown" id="-1430353721%2FFunctions%2F-479651739" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":ComposeTextEditorSpellCheck/commonMain" data-filterable-set=":ComposeTextEditorSpellCheck/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.darkrockstudios.texteditor.spellcheck.markdown/with-markdown.html"><span>with</span><wbr><span><span>Markdown</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1430353721%2FFunctions%2F-479651739"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":ComposeTextEditorSpellCheck/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">SpellCheckState</a><span class="token punctuation">.</span><a href="../../com.darkrockstudios.texteditor.spellcheck.markdown/with-markdown.html"><span class="token function">withMarkdown</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">initialConfiguration<span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.markdown/-markdown-configuration/index.html">MarkdownConfiguration</a><span class="token operator"> = </span>MarkdownConfiguration.DEFAULT<span class="token punctuation">, </span></span><span class="parameter ">imageProvider<span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.richstyle/-image-provider/index.html">ImageProvider</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../ComposeTextEditor/com.darkrockstudios.texteditor.markdown/-markdown-extension/index.html">MarkdownExtension</a></div><div class="brief "><p class="paragraph">Enable markdown import and export on a spell-checked editor.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

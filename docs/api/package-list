@@ -1,0 +1,22 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+
+module:Editor
+com.darkrockstudios.texteditor
+com.darkrockstudios.texteditor.annotatedstring
+com.darkrockstudios.texteditor.clipboard
+com.darkrockstudios.texteditor.contextmenu
+com.darkrockstudios.texteditor.cursor
+com.darkrockstudios.texteditor.input
+com.darkrockstudios.texteditor.markdown
+com.darkrockstudios.texteditor.richstyle
+com.darkrockstudios.texteditor.scrollbar
+com.darkrockstudios.texteditor.state
+com.darkrockstudios.texteditor.utils
+module:Find & Replace
+com.darkrockstudios.texteditor.find
+module:Spell Check
+com.darkrockstudios.texteditor.spellcheck
+com.darkrockstudios.texteditor.spellcheck.adapters
+com.darkrockstudios.texteditor.spellcheck.api
+com.darkrockstudios.texteditor.spellcheck.markdown
