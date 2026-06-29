@@ -11,12 +11,14 @@ import androidx.compose.ui.input.key.type
 import androidx.compose.ui.input.key.utf16CodePoint
 import androidx.compose.ui.platform.Clipboard
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import com.darkrockstudios.texteditor.CharLineOffset
 import com.darkrockstudios.texteditor.TextEditorRange
 import com.darkrockstudios.texteditor.clipboard.ClipboardHelper
 import com.darkrockstudios.texteditor.input.TextEditorKeyCommandHandler.Companion.TAB_SIZE
 import com.darkrockstudios.texteditor.state.TextEditorState
+import com.darkrockstudios.texteditor.state.getSpanStylesInRange
 import com.darkrockstudios.texteditor.state.moveCursorDown
 import com.darkrockstudios.texteditor.state.moveCursorPageDown
 import com.darkrockstudios.texteditor.state.moveCursorPageUp
@@ -49,7 +51,8 @@ internal class TextEditorKeyCommandHandler {
 		state: TextEditorState,
 		clipboard: Clipboard,
 		scope: CoroutineScope,
-		enabled: Boolean = true
+		enabled: Boolean = true,
+		formattingShortcuts: TextFormattingShortcuts = TextFormattingShortcuts.Default
 	): Boolean {
 		if (keyEvent.type != KeyEventType.KeyDown) return false
 
@@ -107,6 +110,32 @@ internal class TextEditorKeyCommandHandler {
 
 			// Editing operations require enabled=true
 			!enabled -> false
+
+			// Formatting shortcuts. Ctrl+Shift+X (strikethrough) is matched before
+			// the Ctrl+X cut branch so it isn't swallowed as a cut.
+			keyEvent.isCtrlPressed && keyEvent.isShiftPressed && keyEvent.key == Key.X &&
+				formattingShortcuts.strikethrough != null -> {
+				toggleStyleSpan(state, formattingShortcuts.strikethrough)
+				true
+			}
+
+			keyEvent.isCtrlPressed && keyEvent.key == Key.B &&
+				formattingShortcuts.bold != null -> {
+				toggleStyleSpan(state, formattingShortcuts.bold)
+				true
+			}
+
+			keyEvent.isCtrlPressed && keyEvent.key == Key.I &&
+				formattingShortcuts.italic != null -> {
+				toggleStyleSpan(state, formattingShortcuts.italic)
+				true
+			}
+
+			keyEvent.isCtrlPressed && keyEvent.key == Key.E &&
+				formattingShortcuts.code != null -> {
+				toggleStyleSpan(state, formattingShortcuts.code)
+				true
+			}
 
 			keyEvent.isCtrlPressed && keyEvent.key == Key.X -> {
 				handleCut(state, clipboard, scope)
@@ -208,6 +237,19 @@ internal class TextEditorKeyCommandHandler {
 		state.insertStringAtCursor(character)
 
 		return true
+	}
+
+	private fun toggleStyleSpan(state: TextEditorState, style: SpanStyle) {
+		val selection = state.selector.selection
+		if (selection != null) {
+			if (state.getSpanStylesInRange(selection).contains(style)) {
+				state.removeStyleSpan(selection, style)
+			} else {
+				state.addStyleSpan(selection, style)
+			}
+		} else {
+			state.cursor.toggleStyle(style)
+		}
 	}
 
 	private fun handleCopy(state: TextEditorState, clipboard: Clipboard, scope: CoroutineScope) {

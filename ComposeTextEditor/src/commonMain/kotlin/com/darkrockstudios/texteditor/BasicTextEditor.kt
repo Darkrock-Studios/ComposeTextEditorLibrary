@@ -39,6 +39,7 @@ import com.darkrockstudios.texteditor.contextmenu.TextEditorContextMenuState
 import com.darkrockstudios.texteditor.cursor.DrawCursor
 import com.darkrockstudios.texteditor.input.CaptureViewForIme
 import com.darkrockstudios.texteditor.input.TextEditorInputModifierElement
+import com.darkrockstudios.texteditor.input.TextFormattingShortcuts
 import com.darkrockstudios.texteditor.richstyle.BlockSpanStyle
 import com.darkrockstudios.texteditor.richstyle.RichSpan
 import com.darkrockstudios.texteditor.scrollbar.TextEditorScrollbar
@@ -69,6 +70,10 @@ private const val CURSOR_BLINK_SPEED_MS = 500L
  *   return `true` to consume the event.
  * @param decorateLine Optional per-line decorator drawn behind each line, keyed by
  *   line index — useful for gutters, current-line highlights, or diff markers.
+ * @param formattingShortcuts Keyboard shortcuts that toggle inline formatting
+ *   (Ctrl+B bold, Ctrl+I italic, Ctrl+Shift+X strikethrough, Ctrl+E code). Pass
+ *   [TextFormattingShortcuts.None] to disable, or supply styles matching a custom
+ *   markdown configuration.
  */
 @Composable
 fun BasicTextEditor(
@@ -82,6 +87,7 @@ fun BasicTextEditor(
 	contextMenuState: TextEditorContextMenuState? = null,
 	onRichSpanClick: RichSpanClickListener? = null,
 	decorateLine: LineDecorator? = null,
+	formattingShortcuts: TextFormattingShortcuts = TextFormattingShortcuts.Default,
 ) {
 	// Capture platform view for IME cursor synchronization (Android only)
 	CaptureViewForIme(state)
@@ -92,8 +98,8 @@ fun BasicTextEditor(
 	val density = LocalDensity.current
 	val layoutDirection = LocalLayoutDirection.current
 
-	val inputModifierElement = remember(state, clipboard, enabled) {
-		TextEditorInputModifierElement(state, clipboard, enabled)
+	val inputModifierElement = remember(state, clipboard, enabled, formattingShortcuts) {
+		TextEditorInputModifierElement(state, clipboard, enabled, formattingShortcuts)
 	}
 
 	val horizontalPadding = remember(contentPadding, layoutDirection) {
