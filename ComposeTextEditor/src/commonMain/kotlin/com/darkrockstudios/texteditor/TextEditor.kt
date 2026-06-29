@@ -5,6 +5,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.darkrockstudios.texteditor.input.TextFormattingShortcuts
 import com.darkrockstudios.texteditor.state.TextEditorState
 import com.darkrockstudios.texteditor.state.rememberTextEditorState
 
@@ -27,6 +28,10 @@ private val DefaultContentPadding = PaddingValues(16.dp)
  * @param style Colors and text style for the editor and its gutter markers.
  * @param onRichSpanClick Invoked when a rich span (link, list, blockquote, code
  *   block, …) is tapped or right-clicked; return `true` to consume the event.
+ * @param formattingShortcuts Keyboard shortcuts that toggle inline formatting
+ *   (Ctrl+B bold, Ctrl+I italic, Ctrl+Shift+X strikethrough, Ctrl+E code). Pass
+ *   [TextFormattingShortcuts.None] to disable, or supply styles matching a custom
+ *   markdown configuration.
  */
 @Composable
 fun TextEditor(
@@ -37,6 +42,7 @@ fun TextEditor(
 	autoFocus: Boolean = false,
 	style: TextEditorStyle = rememberTextEditorStyle(),
 	onRichSpanClick: RichSpanClickListener? = null,
+	formattingShortcuts: TextFormattingShortcuts = TextFormattingShortcuts.Default,
 ) {
 	Surface(modifier = modifier.focusBorder(state.isFocused && enabled, style)) {
 		BasicTextEditor(
@@ -47,6 +53,7 @@ fun TextEditor(
 			autoFocus = autoFocus,
 			style = style,
 			onRichSpanClick = onRichSpanClick,
+			formattingShortcuts = formattingShortcuts,
 		)
 	}
 }

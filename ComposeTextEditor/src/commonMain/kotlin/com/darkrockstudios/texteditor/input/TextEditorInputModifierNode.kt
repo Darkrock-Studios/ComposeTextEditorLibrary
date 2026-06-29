@@ -29,7 +29,8 @@ import kotlinx.coroutines.launch
 internal class TextEditorInputModifierNode(
 	var state: TextEditorState,
 	var clipboard: Clipboard,
-	var enabled: Boolean
+	var enabled: Boolean,
+	var formattingShortcuts: TextFormattingShortcuts
 ) : androidx.compose.ui.Modifier.Node(),
 	KeyInputModifierNode,
 	SoftKeyboardInterceptionModifierNode,
@@ -86,7 +87,7 @@ internal class TextEditorInputModifierNode(
 	}
 
 	override fun onPreKeyEvent(event: KeyEvent): Boolean {
-		return keyCommandHandler.handleKeyEvent(event, state, clipboard, coroutineScope, enabled)
+		return keyCommandHandler.handleKeyEvent(event, state, clipboard, coroutineScope, enabled, formattingShortcuts)
 	}
 
 	override fun onKeyEvent(event: KeyEvent): Boolean {
@@ -103,7 +104,7 @@ internal class TextEditorInputModifierNode(
 	// commitText through InputConnection. The pre-intercept (top-down) phase is
 	// where we want to win — bottom-up just returns false.
 	override fun onPreInterceptKeyBeforeSoftKeyboard(event: KeyEvent): Boolean {
-		return keyCommandHandler.handleKeyEvent(event, state, clipboard, coroutineScope, enabled)
+		return keyCommandHandler.handleKeyEvent(event, state, clipboard, coroutineScope, enabled, formattingShortcuts)
 	}
 
 	override fun onInterceptKeyBeforeSoftKeyboard(event: KeyEvent): Boolean = false
@@ -111,11 +112,13 @@ internal class TextEditorInputModifierNode(
 	fun update(
 		state: TextEditorState,
 		clipboard: Clipboard,
-		enabled: Boolean
+		enabled: Boolean,
+		formattingShortcuts: TextFormattingShortcuts
 	) {
 		this.state = state
 		this.clipboard = clipboard
 		this.enabled = enabled
+		this.formattingShortcuts = formattingShortcuts
 	}
 }
 
@@ -125,15 +128,16 @@ internal class TextEditorInputModifierNode(
 internal data class TextEditorInputModifierElement(
 	val state: TextEditorState,
 	val clipboard: Clipboard,
-	val enabled: Boolean
+	val enabled: Boolean,
+	val formattingShortcuts: TextFormattingShortcuts = TextFormattingShortcuts.Default
 ) : ModifierNodeElement<TextEditorInputModifierNode>() {
 
 	override fun create(): TextEditorInputModifierNode {
-		return TextEditorInputModifierNode(state, clipboard, enabled)
+		return TextEditorInputModifierNode(state, clipboard, enabled, formattingShortcuts)
 	}
 
 	override fun update(node: TextEditorInputModifierNode) {
-		node.update(state, clipboard, enabled)
+		node.update(state, clipboard, enabled, formattingShortcuts)
 	}
 
 	override fun InspectorInfo.inspectableProperties() {
