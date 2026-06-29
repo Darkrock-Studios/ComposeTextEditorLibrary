@@ -43,8 +43,8 @@ The steps below are the manual equivalent, for local rebuilds or out-of-band upd
    ```
 
 4. The site will be available at the GitHub Pages URL:
-   - Demo: `https://darkrock-studios.github.io/ComposeTextEditorLibrary/`
-   - API docs: `https://darkrock-studios.github.io/ComposeTextEditorLibrary/api/`
+   - Demo: `https://darkrock-studios.github.io/ComposeTextEditor/`
+   - API docs: `https://darkrock-studios.github.io/ComposeTextEditor/api/`
 
 > Note: `docs/api/` is generated output. Commit it on the `demo` branch only — don't
 > commit it on `main`.
