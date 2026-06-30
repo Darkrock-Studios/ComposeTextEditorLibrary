@@ -30,6 +30,13 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.semantics.editableText
+import androidx.compose.ui.semantics.insertTextAtCursor
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.setSelection
+import androidx.compose.ui.semantics.setText
+import androidx.compose.ui.semantics.textSelectionRange
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import com.darkrockstudios.texteditor.contextmenu.ContextMenuActions
@@ -39,6 +46,7 @@ import com.darkrockstudios.texteditor.contextmenu.TextEditorContextMenuState
 import com.darkrockstudios.texteditor.cursor.DrawCursor
 import com.darkrockstudios.texteditor.input.CaptureViewForIme
 import com.darkrockstudios.texteditor.input.TextEditorInputModifierElement
+import com.darkrockstudios.texteditor.input.selectionAsTextRange
 import com.darkrockstudios.texteditor.richstyle.BlockSpanStyle
 import com.darkrockstudios.texteditor.richstyle.RichSpan
 import com.darkrockstudios.texteditor.scrollbar.TextEditorScrollbar
@@ -193,6 +201,40 @@ fun BasicTextEditor(
 					.requestFocusOnPress(focusRequester)
 					.then(inputModifierElement)
 					.focusable(enabled = true, interactionSource = interactionSource)
+					// Publish text-editing semantics so the node is recognized as an editable
+					// text field. This drives accessibility services (VoiceOver/TalkBack read and
+					// edit the content) and, on iOS, lets the platform expose the focused editor as
+					// a keyboard-focused text element — without which XCUITest can't type into it.
+					.semantics {
+						editableText = state.getAllText()
+						textSelectionRange = state.selectionAsTextRange()
+						setText { newText ->
+							state.setText(newText)
+							true
+						}
+						insertTextAtCursor { newText ->
+							if (state.selector.hasSelection()) state.selector.deleteSelection()
+							state.insertStringAtCursor(newText)
+							true
+						}
+						setSelection { start, end, _ ->
+							val length = state.getTextLength()
+							val from = start.coerceIn(0, length)
+							val to = end.coerceIn(0, length)
+							if (from == to) {
+								state.cursor.updatePosition(state.getOffsetAtCharacter(from))
+								state.selector.clearSelection()
+							} else {
+								state.selector.updateSelection(
+									state.getOffsetAtCharacter(from),
+									state.getOffsetAtCharacter(to),
+								)
+								state.cursor.updatePosition(state.getOffsetAtCharacter(to))
+							}
+							true
+						}
+						onClick { focusRequester.requestFocus(); true }
+					}
 					.background(style.backgroundColor)
 					.onSizeChanged { size ->
 						state.onViewportSizeChange(
